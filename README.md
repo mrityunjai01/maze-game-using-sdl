@@ -6,6 +6,11 @@ sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf
 ```
 
 # How to run
+you can alternatively do
+```
+./sc1
+```
+after making sc1 executable using ```chmod +x sc1```
 ### Compile the project
 ```
 make clean && make debug
