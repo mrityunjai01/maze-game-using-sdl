@@ -167,10 +167,10 @@ int main(int argc, char* argv[]) {
           theme_2_played = true;
         }
         window.render_theme(3200, 1800, iitd_map_texture);
-        window.render_runner(r1);
         for (Node n: nodes){
           window.render_node(n, blue_flag, yellow_flag);
         }
+        window.render_runner(r1);
 
         break;
       }
