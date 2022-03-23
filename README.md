@@ -5,6 +5,16 @@ sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf
 
 ```
 
+# How to run
+### Compile the project
+```
+make clean && make debug
+```
+### Run the binary
+```
+./bin/debug/main
+```
+
 # Documentation
 ### Incode Documentation
 We've documented every function in the code itself using comments.
