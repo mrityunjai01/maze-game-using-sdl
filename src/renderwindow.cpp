@@ -1,10 +1,12 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <iostream>
+
 #include "render_window.h"
 #include "entity.h"
 #include "screens.h"
 #include "node.h"
+
 RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h) : window(NULL), renderer(NULL) {
   window = SDL_CreateWindow(p_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, p_w, p_h, SDL_WINDOW_SHOWN);
   if (window==NULL) {
@@ -22,6 +24,10 @@ SDL_Texture* RenderWindow::loadTexture(const char* p_filePath) {
 
 void RenderWindow::clear() {
   SDL_RenderClear(renderer);
+}
+void RenderWindow::set_color(int r, int g, int b, int a) {
+  SDL_SetRenderDrawColor(renderer, r, g, b, a);
+  // SDL_RenderSetScale( renderer, 5., 5. );
 }
 
 int RenderWindow::getRefreshRate() {
@@ -44,7 +50,7 @@ void RenderWindow::render_runner(Runner& rnr) {
 
 void RenderWindow::render_node(Node& node, SDL_Texture*& blue_flag, SDL_Texture*& yellow_flag ) {
   SDL_Rect r = {0, 0, 64, 64};
-  SDL_Rect d = {node.pos.x, node.pos.y, 64, 64};
+  SDL_Rect d = {node.pos.x - 32, node.pos.y - 32, 64, 64};
   if (node.getSelected()) {
     SDL_RenderCopy(renderer, yellow_flag, &r , &d);
 
@@ -53,6 +59,25 @@ void RenderWindow::render_node(Node& node, SDL_Texture*& blue_flag, SDL_Texture*
     SDL_RenderCopy(renderer, blue_flag, &r , &d);
 
   }
+}
+void RenderWindow::render_edge(float x1, float y1, float x2, float y2) {
+  // thicklineRGBA(renderer, x1, x2, y1, y2, 10, 255, 0, 0, 255);
+}
+
+void RenderWindow::render_dog(Vector2f v, SDL_Texture*& dog) {
+  SDL_Rect r = {0, 0, 860, 990};
+  SDL_Rect d = {v.x, v.y, 64, 64};
+
+  SDL_RenderCopy(renderer, dog, &r , &d);
+}
+
+void RenderWindow::render_prof(Vector2f v, SDL_Texture*& prof) {
+  SDL_Rect r = {0, 0, 800, 1060};
+  SDL_Rect d = {v.x, v.y, 64, 64};
+
+  SDL_RenderCopy(renderer, prof, &r , &d);
+
+
 }
 
 void RenderWindow::render_theme(int w, int h, SDL_Texture*& p_tex) {

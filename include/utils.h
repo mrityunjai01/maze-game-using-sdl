@@ -11,5 +11,6 @@ namespace utils
     return t;
   }
 }
+
 float squared_dist (Vector2f v, float x, float y);
 int closest_node(std::vector<Node>& nodes, float x, float y);

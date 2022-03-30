@@ -5,4 +5,5 @@ const int SCREEN_H = 1080;
 enum Screen {
   ThemeScreen,
   MainGameScreen,
+  HelpScreen
 };

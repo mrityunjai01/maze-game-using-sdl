@@ -15,6 +15,7 @@ class Runner : public Entity {
     float dir_x, dir_y;
     void step();
     void setDir(float x, float y);
+    float speed_multiplier;
     float get_speed();
     Vector2f pos;
 
