@@ -30,6 +30,7 @@ Mix_Chunk* click_sfx;
 SDL_Texture* theme_background_texture;
 SDL_Texture* iitd_map_texture;
 SDL_Texture* runner_texture;
+SDL_Texture* dog;
 SDL_Texture* blue_flag;
 SDL_Texture* yellow_flag;
 
@@ -46,6 +47,7 @@ void textureCleanUp() {
   SDL_DestroyTexture(runner_texture);
   SDL_DestroyTexture(blue_flag);
   SDL_DestroyTexture(yellow_flag);
+  SDL_DestroyTexture(dog);
 
 }
 
@@ -63,6 +65,7 @@ int main(int argc, char* argv[]) {
   runner_texture = window.loadTexture("res/gfx/run.png");
   yellow_flag = window.loadTexture("res/gfx/icons8-flag-64_yellow.png");
   blue_flag = window.loadTexture("res/gfx/icons8-flag-64_blue.png");
+  dog = window.loadTexture("res/gfx/icons8-flag-64_blue.png");
   int ww, hh;
   SDL_QueryTexture(runner_texture, NULL, NULL, &ww, &hh);
   std::cout << ww << " " << hh << '\n';
@@ -82,6 +85,11 @@ int main(int argc, char* argv[]) {
   nodes.push_back(Node(Vector2f(100, 100)));
   nodes.push_back(Node(Vector2f(400, 100)));
   nodes.push_back(Node(Vector2f(400, 700)));
+
+  std::vector<Vector2f> dogs;
+  dogs.push_back(Vector2f(300, 100));
+  dogs.push_back(Vector2f(400, 400));
+
   int prev_node_selected = 0;
   std::ifstream myfile;
   myfile.open ("map.csv");
@@ -169,6 +177,9 @@ int main(int argc, char* argv[]) {
         window.render_theme(3200, 1800, iitd_map_texture);
         for (Node n: nodes){
           window.render_node(n, blue_flag, yellow_flag);
+        }
+        for (Vector2f d: dogs) {
+          window.render_dog(d, dog);
         }
         window.render_runner(r1);
 
