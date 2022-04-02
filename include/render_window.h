@@ -15,7 +15,8 @@ public:
   void render_runner(Runner& rnr);
   void render_dog(Vector2f, SDL_Texture*&);
   void render_prof(Vector2f, SDL_Texture*&);
-
+  void render_healthbar(float h);
+  void render_speedbar(int speed);
   void render_node(Node& node, SDL_Texture*& blue_flag, SDL_Texture*& yellow_flag);
   void render_edge(float x1, float y1, float x2, float y2);
   void render_theme(int w, int h, SDL_Texture*& p_tex);
