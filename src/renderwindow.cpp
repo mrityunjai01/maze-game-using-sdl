@@ -44,13 +44,13 @@ void RenderWindow::render_entity(Entity& p_ent) {
 
 void RenderWindow::render_runner(Runner& rnr) {
   SDL_Rect r = {rnr.current_x, 0, 75, 132};
-  SDL_Rect d = {rnr.pos.x, rnr.pos.y, 75, 132};
+  SDL_Rect d = {rnr.pos.x - 30, rnr.pos.y - 104, 60, 104};
   SDL_RenderCopy(renderer, rnr.getTexture(), &r , &d);
 }
 
 void RenderWindow::render_node(Node& node, SDL_Texture*& blue_flag, SDL_Texture*& yellow_flag ) {
   SDL_Rect r = {0, 0, 64, 64};
-  SDL_Rect d = {node.pos.x - 32, node.pos.y - 32, 64, 64};
+  SDL_Rect d = {node.pos.x - 10, node.pos.y - 10, 20, 20};
   if (node.getSelected()) {
     SDL_RenderCopy(renderer, yellow_flag, &r , &d);
 
@@ -66,18 +66,36 @@ void RenderWindow::render_edge(float x1, float y1, float x2, float y2) {
 
 void RenderWindow::render_dog(Vector2f v, SDL_Texture*& dog) {
   SDL_Rect r = {0, 0, 860, 990};
-  SDL_Rect d = {v.x, v.y, 64, 64};
+  SDL_Rect d = {v.x-32, v.y-32, 64, 64};
 
   SDL_RenderCopy(renderer, dog, &r , &d);
 }
 
 void RenderWindow::render_prof(Vector2f v, SDL_Texture*& prof) {
   SDL_Rect r = {0, 0, 800, 1060};
-  SDL_Rect d = {v.x, v.y, 64, 64};
+  SDL_Rect d = {v.x-32, v.y-32, 64, 64};
 
   SDL_RenderCopy(renderer, prof, &r , &d);
 
 
+}
+void RenderWindow::render_healthbar(float h) {
+  int height = h * 200;
+  SDL_Rect r = { 1800, 1000 - height, 20, height};
+
+  SDL_SetRenderDrawColor(renderer, 0x00, 0xff, 0x00, SDL_ALPHA_OPAQUE);
+	SDL_RenderFillRect(renderer, &r);
+  SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE);
+	SDL_RenderDrawRect(renderer, &r);
+}
+void RenderWindow::render_speedbar(int speed) {
+  int height = speed * 2;
+  SDL_Rect r = { 1750, 1000 - height, 20, height};
+
+  SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xff, SDL_ALPHA_OPAQUE);
+	SDL_RenderFillRect(renderer, &r);
+  SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE);
+	SDL_RenderDrawRect(renderer, &r);
 }
 
 void RenderWindow::render_theme(int w, int h, SDL_Texture*& p_tex) {
