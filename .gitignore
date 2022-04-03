@@ -1,3 +1,4 @@
 *.o
 bin/debug/main
 bin/release/main
+map.csv
