@@ -64,13 +64,17 @@ std::vector<Vector2f> dogs;
 std::vector<Vector2f> profs;
 std::vector<Vector2f> yulus;
 std::vector<Vector2f> amuls;
+std::vector<Vector2f> new_spawnpoints;
+int all_spawnpoints_indices[50];
 
 void init() {
+  // all_spawnpoints_indices.assign(50, 0);
+  new_spawnpoints.reserve(50);
 
   health = 1.0;
 
-  std::mt19937 rng(static_cast<uint32_t>(time(0)));
-  std::shuffle(all_spawnpoints.begin(), all_spawnpoints.end(), rng);
+  // std::mt19937 rng(static_cast<uint32_t>(time(0)));
+  // std::shuffle(all_spawnpoints.begin(), all_spawnpoints.end(), rng);
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) std::cout << "sdl_init failed\n" << SDL_GetError() << '\n';
   if (!(IMG_Init(IMG_INIT_PNG))) std::cout << "IMG_Init failed\n" << SDL_GetError() << '\n';
   if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) std::cout << "audio cant init "<<SDL_GetError() << '\n';
@@ -222,6 +226,25 @@ int main(int argc, char **argv){
               memcpy(&input_status, (const void*) event.packet->data, sizeof (GameStatus));
               // std::cout  << input_status.x1 << '\n';
               update_gamestate(&input_status);
+            }
+            else if (event.packet -> dataLength > 32) {
+              std::cout << "received spawnpoints\n";
+              memcpy(&all_spawnpoints_indices, (const void*) event.packet->data, sizeof (all_spawnpoints_indices));
+              for (int i = 0; i < 10; i++) {
+                std::cout << all_spawnpoints_indices[i] << ' ';
+              } std::cout << '\n';
+              for (int i = 0; i < 50; i++) {
+                new_spawnpoints[i] = all_spawnpoints[all_spawnpoints_indices[i]];
+              }
+              dogs = {new_spawnpoints.begin(), new_spawnpoints.begin() + 20};
+
+              profs = {new_spawnpoints.begin() + 20, new_spawnpoints.begin() + 35};
+
+              yulus = {new_spawnpoints.begin() + 35, new_spawnpoints.begin() + 40};
+              amuls = {new_spawnpoints.begin() + 40, new_spawnpoints.begin() + 45};
+            }
+            else {
+              std::cout << event.packet -> dataLength  << " received which is nto listed\n";
             }
 
             /* Clean up the packet now that we're done using it. */

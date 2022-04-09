@@ -2,13 +2,24 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include <vector>
 #include <cstring>
 #include <chrono>
+#include <algorithm>
+#include <random>
 #include "network_structs.h"
+// #include "map_data.h"
 
 int main(int argc, char **argv){
   char* c1 = "1";
   char* c2 = "2";
+
+  int spawnpoint_indices[50];
+  for (int i = 0; i < 50; i++) spawnpoint_indices[i] = i;
+  std::mt19937 rng(static_cast<uint32_t>(time(0)));
+  std::shuffle(spawnpoint_indices, spawnpoint_indices+50, rng);
+
+
   if (enet_initialize () != 0)
   {
       fprintf (stdout, "An error occurred while initializing ENet.\n");
@@ -62,6 +73,8 @@ int main(int argc, char **argv){
           event.peer -> address.host,
           event.peer -> address.port);
 
+          ENetPacket* spawnpoint_packet = enet_packet_create(spawnpoint_indices, sizeof(spawnpoint_indices), ENET_PACKET_FLAG_RELIABLE);
+
           if (total_connections==0) {
             client1 = event.peer;
             event.peer->data = c1;
@@ -73,6 +86,7 @@ int main(int argc, char **argv){
             enet_peer_send(client1, 0, packet);
             enet_peer_send(client1, 0, packet);
             enet_peer_send(client1, 0, packet);
+            enet_peer_send(client1, 0, spawnpoint_packet);
             // enet_packet_destroy(packet);
 
           }
@@ -87,6 +101,7 @@ int main(int argc, char **argv){
             enet_peer_send(client2, 0, packet);
             enet_peer_send(client2, 0, packet);
             enet_peer_send(client2, 0, packet);
+            enet_peer_send(client2, 0, spawnpoint_packet);
             // enet_packet_destroy(packet);
           }
 
