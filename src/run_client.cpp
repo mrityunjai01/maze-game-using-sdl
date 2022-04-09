@@ -13,6 +13,7 @@
 #include "utils.h"
 #include "screens.h"
 #include "map_data.h"
+#include "constants.h"
 #include "game_objects.h"
 #include "events.h"
 #include "cleanup.h"
@@ -50,6 +51,7 @@ bool running;
 Screen screen;
 Runner r1;
 Runner r2;
+int am_i_r1;
 
 PlayerInput current_inp;
 int current_inp_idx;

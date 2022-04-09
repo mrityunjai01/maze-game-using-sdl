@@ -11,3 +11,5 @@
 #include "network_structs.h"
 #include "map_data_extern.h"
 #include "constants.h"
+
+void update_gamestate(GameStatus* status);
