@@ -6,4 +6,4 @@ const int min_dog_dist = 2000;
 const int min_prof_dist = 2000;
 const int min_amul_dist = 2000;
 const int min_yulu_dist = 2000;
-extern int am_i_r1;
+extern bool am_i_r1;

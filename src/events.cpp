@@ -43,7 +43,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
             break;
           }
 
-          std::cout << "the closest node " <<closest_node_to_click << " pos "<<nodes[closest_node_to_click].pos.x << ", "<<nodes[closest_node_to_click].pos.y<< '\n';
+          // std::cout << "the closest node " <<closest_node_to_click << " pos "<<nodes[closest_node_to_click].pos.x << ", "<<nodes[closest_node_to_click].pos.y<< '\n';
           nodes[prev_node_selected].setSelected(false);
           nodes[closest_node_to_click].setSelected(true);
           prev_node_selected = closest_node_to_click;

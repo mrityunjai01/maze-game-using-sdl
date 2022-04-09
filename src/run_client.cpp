@@ -51,7 +51,7 @@ bool running;
 Screen screen;
 Runner r1;
 Runner r2;
-int am_i_r1;
+bool am_i_r1;
 
 PlayerInput current_inp;
 int current_inp_idx;
@@ -201,15 +201,26 @@ int main(int argc, char **argv){
         handle_event(e, prev_node_selected);
 
       }
+      send_input();
       while (enet_host_check_events(client_host, &event)) {
         switch (event.type) {
 
           case ENET_EVENT_TYPE_RECEIVE:{
             // std::cout << "packet of length " << event.packet -> dataLength << " received\n";
-            if (event.packet -> dataLength == sizeof(GameStatus)) {
+            if (event.packet -> dataLength == 8) {
+                char* r1_or_r2 = (char*) event.packet -> data;
+                printf("%s\n", r1_or_r2);
+                if (strcmp (r1_or_r2, "1") == 0) {
+                  am_i_r1 = 1;
+                }
+                else {
+                  am_i_r1 = 0;
+                }
+            }
+            else if (event.packet -> dataLength == sizeof(GameStatus)) {
 
               memcpy(&input_status, (const void*) event.packet->data, sizeof (GameStatus));
-              std::cout  << input_status.x1 << '\n';
+              // std::cout  << input_status.x1 << '\n';
               update_gamestate(&input_status);
             }
 
