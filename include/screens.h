@@ -1,9 +1,13 @@
 #pragma once
+#include "assets.h"
+#include "game_objects.h"
 
-const int SCREEN_W = 1920;
-const int SCREEN_H = 1080;
 enum Screen {
   ThemeScreen,
   MainGameScreen,
   HelpScreen
 };
+
+extern Screen screen;
+extern bool running;
+void show_screen();

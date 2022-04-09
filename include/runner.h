@@ -7,8 +7,10 @@
 class Runner : public Entity {
   public:
 
-    Runner(Vector2f pos, SDL_Texture* p_tex, int speed);
-    int speed;
+    Runner(){}
+    Runner(Vector2f pos, SDL_Texture* p_tex, float speed);
+    float speed;
+    float health;
     int sprite;
     int current_x;
 

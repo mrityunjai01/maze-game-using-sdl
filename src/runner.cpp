@@ -4,7 +4,7 @@
 #include "entity.h"
 #include "runner.h"
 
-Runner::Runner(Vector2f pos, SDL_Texture* p_tex, int speed): Entity {pos, p_tex}, speed{speed} {
+Runner::Runner(Vector2f pos, SDL_Texture* p_tex, float speed): Entity {pos, p_tex}, speed{speed} {
   current_x = 0;
   speed_multiplier = 1;
   dir_x = 0;

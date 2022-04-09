@@ -5,6 +5,7 @@
 #include "proc.h"
 class Entity {
 public:
+  Entity(){}
   Entity(Vector2f pos, SDL_Texture* p_tex);
   Vector2f& getPos() {
     return pos;

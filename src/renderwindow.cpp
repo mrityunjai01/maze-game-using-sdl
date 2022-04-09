@@ -4,7 +4,8 @@
 
 #include "render_window.h"
 #include "entity.h"
-#include "screens.h"
+#include "constants.h"
+// #include "screens.h"
 #include "node.h"
 
 RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h) : window(NULL), renderer(NULL) {
@@ -88,8 +89,8 @@ void RenderWindow::render_healthbar(float h) {
   SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE);
 	SDL_RenderDrawRect(renderer, &r);
 }
-void RenderWindow::render_speedbar(int speed) {
-  int height = speed * 2;
+void RenderWindow::render_speedbar(float speed) {
+  int height = round(speed * 2);
   SDL_Rect r = { 1750, 1000 - height, 20, height};
 
   SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xff, SDL_ALPHA_OPAQUE);

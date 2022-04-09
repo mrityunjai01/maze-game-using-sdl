@@ -7,6 +7,7 @@
 #include "proc.h"
 class RenderWindow {
 public:
+  RenderWindow() {}
   RenderWindow(const char* p_title, int p_v, int p_h);
   SDL_Texture* loadTexture(const char* p_filePath);
   void cleanUp();
@@ -16,7 +17,7 @@ public:
   void render_dog(Vector2f, SDL_Texture*&);
   void render_prof(Vector2f, SDL_Texture*&);
   void render_healthbar(float h);
-  void render_speedbar(int speed);
+  void render_speedbar(float speed);
   void render_node(Node& node, SDL_Texture*& blue_flag, SDL_Texture*& yellow_flag);
   void render_edge(float x1, float y1, float x2, float y2);
   void render_theme(int w, int h, SDL_Texture*& p_tex);

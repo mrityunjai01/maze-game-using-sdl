@@ -1,7 +1,10 @@
 CC=g++
 flags=-lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 CFLAGS= -std=c++17 -I include
-.PHONY: debug release clean
+.PHONY: debug release clean run_server run_client
+
+run_server: src/run_server.cpp
+	$(CC) src/run_server.cpp -o run_server.out -lenet -Wl,-rpath -Wl,/usr/local/lib -g $(CFLAGS)
 
 renderwindow.o: src/renderwindow.cpp
 	$(CC) src/renderwindow.cpp -c -o renderwindow.o $(flags) -g $(CFLAGS)
@@ -23,6 +26,22 @@ main.o: src/main.cpp renderwindow.o entity.o node.o runner.o utils.o
 
 debug: main.o renderwindow.o entity.o node.o runner.o utils.o
 	$(CC) -o bin/debug/main $^ $(flags) -g $(CFLAGS)
+
+
+cleanup.o:
+	$(CC) src/cleanup.cpp -c -o cleanup.o $(flags) -g $(CFLAGS)
+
+screens.o:
+	$(CC) src/screens.cpp -c -o screens.o $(flags) -g $(CFLAGS)
+
+events.o:
+	$(CC) src/events.cpp -c -o events.o $(flags) -g $(CFLAGS)
+
+run_client.o: src/run_client.cpp renderwindow.o entity.o node.o runner.o utils.o cleanup.o screens.o events.o
+	$(CC) src/run_client.cpp -c -o run_client.o $(flags) -g $(CFLAGS)
+
+run_client: run_client.o renderwindow.o entity.o node.o runner.o utils.o cleanup.o screens.o events.o
+	$(CC) -o run_client.out $^ $(flags) -lenet -Wl,-rpath -Wl,/usr/local/lib -g $(CFLAGS)
 
 release: main.o
 	$(CC) -o bin/release/main $^  -s -03 $(flags) -g $(CFLAGS)
