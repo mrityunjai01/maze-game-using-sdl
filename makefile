@@ -37,10 +37,18 @@ screens.o:
 events.o:
 	$(CC) src/events.cpp -c -o events.o $(flags) -g $(CFLAGS)
 
-run_client.o: src/run_client.cpp renderwindow.o entity.o node.o runner.o utils.o cleanup.o screens.o events.o
+update_gamestate.o:
+	$(CC) src/update_gamestate.cpp -c -o update_gamestate.o $(flags) -g $(CFLAGS)
+
+send_input.o:
+	$(CC) src/send_input.cpp -c -o send_input.o $(flags) -g $(CFLAGS)
+
+
+
+run_client.o: src/run_client.cpp renderwindow.o entity.o node.o runner.o utils.o cleanup.o screens.o events.o update_gamestate.o send_input.o
 	$(CC) src/run_client.cpp -c -o run_client.o $(flags) -g $(CFLAGS)
 
-run_client: run_client.o renderwindow.o entity.o node.o runner.o utils.o cleanup.o screens.o events.o
+run_client: run_client.o renderwindow.o entity.o node.o runner.o utils.o cleanup.o screens.o events.o update_gamestate.o send_input.o
 	$(CC) -o run_client.out $^ $(flags) -lenet -Wl,-rpath -Wl,/usr/local/lib -g $(CFLAGS)
 
 release: main.o

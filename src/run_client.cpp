@@ -21,6 +21,7 @@
 #include "network_structs.h"
 #include "update_gamestate.h"
 
+
 Mix_Chunk* theme_sfx;
 Mix_Chunk* theme_2_sfx;
 Mix_Chunk* select_one_sfx;
@@ -49,6 +50,9 @@ bool running;
 Screen screen;
 Runner r1;
 Runner r2;
+
+PlayerInput current_inp;
+int current_inp_idx;
 
 ENetPeer* peer;
 ENetHost* client_host;

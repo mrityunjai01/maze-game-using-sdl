@@ -1,16 +1,18 @@
 #pragma once
 enum InputEvent {
+  NoInput,
   SpaceKey,
   DirectionChange,
 };
 
 struct PlayerInput {
-  PlayerInput(){};
+  PlayerInput(): keypressed(NoInput) {};
   PlayerInput(InputEvent keyp): keypressed(keyp) {};
-  PlayerInput(InputEvent keyp, int new_node): keypressed(keyp), new_node_to_point(new_node) {};
+  PlayerInput(InputEvent keyp, int new_node, int input_idx): keypressed(keyp), new_node_to_point(new_node), input_idx(input_idx) {};
 
   InputEvent keypressed;
   int new_node_to_point;
+  int input_idx;
 };
 
 struct GameStatus {
