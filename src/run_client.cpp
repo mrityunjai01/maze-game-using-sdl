@@ -21,7 +21,7 @@
 #include "node.h"
 #include "network_structs.h"
 #include "update_gamestate.h"
-#include "play_theme_song.h"
+#include "game_meta_constants.h"
 
 
 Mix_Chunk* theme_sfx;
@@ -223,7 +223,6 @@ int main(int argc, char **argv){
                 }
             }
             else if (event.packet -> dataLength == sizeof(GameStatus)) {
-
               memcpy(&input_status, (const void*) event.packet->data, sizeof (GameStatus));
               // std::cout  << input_status.x1 << '\n';
               update_gamestate(&input_status);

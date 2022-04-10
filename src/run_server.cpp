@@ -124,7 +124,7 @@ int main(int argc, char **argv){
 
           }
           latest_input_idx = player_input.input_idx;
-          std::cout << "received from  "<< event.peer -> data << ": ";
+          std::cout << "received from  "<< player_input.am_i_r1 << ": ";
           if (event.peer == client1) {
             std::cout << "client1";
           }
@@ -211,7 +211,7 @@ int main(int argc, char **argv){
       }
       enet_host_flush(server);
       if (total_connections < 1 && event.type==ENET_EVENT_TYPE_DISCONNECT) {
-        printf("Now, I dont have any connections, so bye!");
+        printf("Now, I dont have any connections, so bye!\nclosing server.");
         running = false;
       }
 
