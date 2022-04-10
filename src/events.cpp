@@ -49,7 +49,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
           prev_node_selected = closest_node_to_click;
           r1.setDir(nodes[closest_node_to_click].pos.x, nodes[closest_node_to_click].pos.y);
 
-          current_inp = PlayerInput(DirectionChange, closest_node_to_click, current_inp_idx++);
+          current_inp = PlayerInput(DirectionChange, closest_node_to_click, current_inp_idx++, am_i_r1);
 
           // std::cout << r1.pos.x << ", " << r1.pos.y << '\n';
           break;
@@ -59,8 +59,8 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
             for (Vector2f& d: dogs) {
               if (squared_dist(d, r1.pos.x, r1.pos.y) < min_dog_dist) {
                 Mix_PlayChannel(-1, dog_sfx, 0);
-                health -= 0.02;
-                health = std::max(health, 0.0f);
+                r1.health -= 0.02;
+                r1.health = std::max(r1.health, 0.0f);
               }
             }
             for (Vector2f& d: yulus) {
@@ -72,8 +72,8 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
             for (Vector2f& d: amuls) {
               if (squared_dist(d, r1.pos.x, r1.pos.y) < min_amul_dist) {
                 Mix_PlayChannel(-1, amul_sfx, 0);
-                health += 0.2;
-                health = std::min(health, 1.0f);
+                r1.health += 0.2;
+                r1.health = std::min(r1.health, 1.0f);
               }
             }
             for (Vector2f& d: profs) {
@@ -84,6 +84,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
               }
             }
             r1.step();
+            current_inp = PlayerInput(SpaceKey, -1, current_inp_idx++, am_i_r1);
 
             // std::cout << r1.pos.x << ", " << r1.pos.y << '\n';
           }

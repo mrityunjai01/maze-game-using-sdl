@@ -4,7 +4,7 @@ void show_screen() {
     case ThemeScreen: {
       window.render_theme(1920, 1080, theme_background_texture);
       if (!theme_played) {
-        Mix_PlayChannel(-1, theme_sfx, 0);
+        // Mix_PlayChannel(-1, theme_sfx, 0);
         theme_played = true;
       }
       break;
@@ -13,7 +13,7 @@ void show_screen() {
 
       if (!theme_2_played)
       {
-        Mix_PlayChannel(-1, theme_2_sfx, 0);
+        // Mix_PlayChannel(-1, theme_2_sfx, 0);
 
 
         theme_2_played = true;

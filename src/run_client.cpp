@@ -21,6 +21,7 @@
 #include "node.h"
 #include "network_structs.h"
 #include "update_gamestate.h"
+#include "play_theme_song.h"
 
 
 Mix_Chunk* theme_sfx;
