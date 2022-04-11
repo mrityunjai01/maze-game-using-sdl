@@ -5,7 +5,8 @@
 class Runner {
   public:
 
-    Runner(){}
+    Runner(){};
+    Runner(Vector2f pos, float speed);
     Runner(Vector2f pos);
     float speed;
     float health;

@@ -21,6 +21,15 @@
  */
 Runner::Runner(Vector2f pos): pos(pos) {
   current_x = 0;
+  float health = 1;
+  speed_multiplier = 1;
+  dir_x = 0;
+  dir_y = 1;
+
+}
+Runner::Runner(Vector2f pos, float speed): pos(pos), speed(speed) {
+  current_x = 0;
+  float health = 1;
   speed_multiplier = 1;
   dir_x = 0;
   dir_y = 1;

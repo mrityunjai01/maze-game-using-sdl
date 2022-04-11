@@ -10,5 +10,5 @@ var searchData=
   ['render_5fspeedbar',['render_speedbar',['../classRenderWindow.html#aae1e5900caddb595bad27727bea561c1',1,'RenderWindow']]],
   ['render_5ftheme',['render_theme',['../classRenderWindow.html#a41e50100f8c4a46796edbea96be16941',1,'RenderWindow']]],
   ['renderwindow',['RenderWindow',['../classRenderWindow.html#abc520edb5229875740a71a302e8725e8',1,'RenderWindow']]],
-  ['runner',['Runner',['../classRunner.html#ad4387a39b397ad344d10c9d3c4588ea4',1,'Runner']]]
+  ['runner',['Runner',['../classRunner.html#ad4387a39b397ad344d10c9d3c4588ea4',1,'Runner::Runner(Vector2f pos, SDL_Texture *p_tex, float speed)'],['../classRunner.html#a33245868928d0265e28249ec5562dfdd',1,'Runner::Runner(Vector2f pos)']]]
 ];

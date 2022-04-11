@@ -3,3 +3,6 @@ bin/debug/main
 bin/release/main
 map.csv
 latex
+xml
+*.out
+*.log

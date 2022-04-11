@@ -21,6 +21,8 @@
 #include "network_structs.h"
 #include "proc.h"
 #include "runner_for_server.h"
+#include "map_data_for_server.h"
+
 // #include "map_data.h"
 /**
  * @brief The main function for running the server.
@@ -30,8 +32,8 @@
  * @return int
  */
 int main(int argc, char **argv){
-  char* c1 = "1";
-  char* c2 = "2";
+  char* c1 = "0";
+  char* c2 = "1";
 
   int spawnpoint_indices[50];
   for (int i = 0; i < 50; i++) spawnpoint_indices[i] = i;
@@ -57,7 +59,7 @@ int main(int argc, char **argv){
       exit (EXIT_FAILURE);
   }
   Vector2f start_point{100, 100}, end_point{300, 300};
-  GameStatus current_status(20, 100, start_point.x, start_point.y, 20, 100, end_point.x, end_point.y);
+  GameStatus current_status(10, 1, start_point.x, start_point.y, 10, 1, end_point.x, end_point.y);
   bool running = true;
   ENetEvent event;
   ENetPeer* client1, *client2;
@@ -70,7 +72,8 @@ int main(int argc, char **argv){
 
   int latest_input_idx_0 = -1;
   int latest_input_idx_1 = -1;
-  Runner r1(Vector2f(100, 100)), r2(Vector2f(300, 300));
+  int selected_node_idx;
+  Runner r1(Vector2f(100, 100), 5), r2(Vector2f(300, 300), 5);
 
   float time_step = 20;
   char data[sizeof(GameStatus)];
@@ -170,14 +173,7 @@ int main(int argc, char **argv){
 
             switch(player_input.keypressed) {
               case SpaceKey: {
-                if (player_input.player_index == 0) {
-
-                }
-                else {
-
-                }
-              }
-              case DirectionChange: {
+                std::cout << "the input is a space\n";
                 if (player_input.player_index == 0) {
                   r1.step();
                   current_status.x1 = r1.pos.x;
@@ -188,6 +184,22 @@ int main(int argc, char **argv){
                   current_status.x2 = r2.pos.x;
                   current_status.y2 = r2.pos.y;
                 }
+                break;
+              }
+              case DirectionChange: {
+                std::cout << "the input is a dir change\n";
+                selected_node_idx = player_input.new_node_to_point;
+                if (player_input.player_index == 0) {
+                  r1.setDir(nodes[selected_node_idx].pos.x, nodes[selected_node_idx].pos.y);
+                }
+                else {
+                  r2.setDir(nodes[selected_node_idx].pos.x, nodes[selected_node_idx].pos.y);
+
+                }
+                break;
+              }
+              default: {
+                std::cout << "dont konw what the input is\n";
               }
 
             }

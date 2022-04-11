@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['welcome_20to_20mkdocs',['Welcome to MkDocs',['../md_markdown_index.html',1,'']]],
-  ['why',['why',['../md_markdown_why.html',1,'']]]
+  ['the_20main_20function',['The main function',['../md_markdown_client_main.html',1,'']]]
 ];
