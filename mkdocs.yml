@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+site_name: Multiplayer Game with documented source built with SDL
+repo_name: 'maze-game-sdl'
+repo_url: 'https://github.com/mrityunjai01/maze-game-sdl'
+copyright: 'Made by <a href="https://github.com/mrityunjai01/">Mrityunjai</a>'
+site_author: Mrityunjai
+site_dir: docs
+docs_dir: markdown
+remote_branch: main
+remote_name: origin
+
+theme:
+  name:
+    material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - toc.integrate
+    - toc.follow
+    - navigation.top
+
+
+
+plugins:
+  - search
+  - tags
+  - minify:
+      minify_html: true
+  - git-revision-date-localized:
+      type: timeago
+  - git-authors:
+      show_contribution: True
+
+markdown_extensions:
+  - admonition

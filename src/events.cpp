@@ -49,7 +49,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
           prev_node_selected = closest_node_to_click;
           r1.setDir(nodes[closest_node_to_click].pos.x, nodes[closest_node_to_click].pos.y);
 
-          current_inp = PlayerInput(DirectionChange, closest_node_to_click, current_inp_idx++, am_i_r1);
+          // current_inp = PlayerInput(DirectionChange, closest_node_to_click, current_inp_idx++, am_i_r1);
 
           // std::cout << r1.pos.x << ", " << r1.pos.y << '\n';
           break;
@@ -84,7 +84,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
               }
             }
             r1.step();
-            current_inp = PlayerInput(SpaceKey, -1, current_inp_idx++, am_i_r1);
+            // current_inp = PlayerInput(SpaceKey, -1, current_inp_idx++, am_i_r1);
 
             // std::cout << r1.pos.x << ", " << r1.pos.y << '\n';
           }
