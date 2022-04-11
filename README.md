@@ -25,4 +25,4 @@ make clean && make debug
 We've documented every function in the code itself using comments.
 
 ### Reference Documentation
-We've hosted the reference documentation at .
+We've hosted the reference documentation at [Documentation](https://mrityunjai01.github.io/maze-game-using-sdl/index.html).
