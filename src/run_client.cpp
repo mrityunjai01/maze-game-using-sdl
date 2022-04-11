@@ -1,12 +1,12 @@
 /**
  * @file run_client.cpp
  * @author your name (you@domain.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2022-04-11
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 #include <enet/enet.h>
 #include <stdio.h>
@@ -35,7 +35,7 @@
 
 /**
  * @brief The theme sound effect.
- * 
+ *
  */
 Mix_Chunk* theme_sfx;
 Mix_Chunk* theme_2_sfx;
@@ -60,7 +60,7 @@ SDL_Texture* yellow_flag;
 
 /**
  * @brief The window to be rendered.
- * 
+ *
  */
 RenderWindow window;
 float health;
@@ -69,28 +69,28 @@ bool running;
 Screen screen;
 Runner r1;
 Runner r2;
-bool am_i_r1;
+int player_index;
 /**
  * @brief Player's latest input.
- * 
+ *
  */
 PlayerInput current_inp;
 int current_inp_idx;
 /**
  * @brief The Server connection
- * 
+ *
  */
 ENetPeer* peer;
 /**
  * @brief The client connection
- * 
+ *
  */
 ENetHost* client_host;
 
 bool theme_played, theme_2_played;
 /**
  * @brief Vector of all the dogs.
- * 
+ *
  */
 std::vector<Vector2f> dogs;
 std::vector<Vector2f> profs;
@@ -100,7 +100,7 @@ std::vector<Vector2f> new_spawnpoints;
 int all_spawnpoints_indices[50];
 /**
  * @brief Initializes all the resources by reading them into memory.
- * 
+ *
  */
 void init() {
   // all_spawnpoints_indices.assign(50, 0);
@@ -119,10 +119,10 @@ void init() {
 
 /**
  * @brief The main function for running the client.
- * 
- * @param argc 
- * @param argv 
- * @return int 
+ *
+ * @param argc
+ * @param argv
+ * @return int
  */
 int main(int argc, char **argv){
   if (enet_initialize () != 0)
@@ -256,10 +256,10 @@ int main(int argc, char **argv){
                 char* r1_or_r2 = (char*) event.packet -> data;
                 printf("%s\n", r1_or_r2);
                 if (strcmp (r1_or_r2, "1") == 0) {
-                  am_i_r1 = 1;
+                  player_index = 0;
                 }
                 else {
-                  am_i_r1 = 0;
+                  player_index = 1;
                 }
             }
             else if (event.packet -> dataLength == sizeof(GameStatus)) {
@@ -270,9 +270,7 @@ int main(int argc, char **argv){
             else if (event.packet -> dataLength > 32) {
               std::cout << "received spawnpoints\n";
               memcpy(&all_spawnpoints_indices, (const void*) event.packet->data, sizeof (all_spawnpoints_indices));
-              for (int i = 0; i < 10; i++) {
-                std::cout << all_spawnpoints_indices[i] << ' ';
-              } std::cout << '\n';
+
               for (int i = 0; i < 50; i++) {
                 new_spawnpoints[i] = all_spawnpoints[all_spawnpoints_indices[i]];
               }
@@ -284,7 +282,7 @@ int main(int argc, char **argv){
               amuls = {new_spawnpoints.begin() + 40, new_spawnpoints.begin() + 45};
             }
             else {
-              std::cout << event.packet -> dataLength  << " received which is nto listed\n";
+              std::cout << event.packet -> dataLength  << " received sth which is not listed\n";
             }
 
             /* Clean up the packet now that we're done using it. */

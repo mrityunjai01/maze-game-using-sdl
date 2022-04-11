@@ -6,12 +6,12 @@ enum InputEvent {
 };
 
 struct PlayerInput {
-  PlayerInput(): keypressed(NoInput), new_node_to_point(-1), input_idx(-1), am_i_r1(false) {};
+  PlayerInput(): keypressed(NoInput), new_node_to_point(-1), input_idx(-1), player_index(-1) {};
   PlayerInput(InputEvent keyp): keypressed(keyp) {};
-  PlayerInput(InputEvent keyp, int new_node, int input_idx, bool am_i_r1): keypressed(keyp), new_node_to_point(new_node), input_idx(input_idx), am_i_r1(am_i_r1) {};
+  PlayerInput(InputEvent keyp, int new_node, int input_idx, int player_index): keypressed(keyp), new_node_to_point(new_node), input_idx(input_idx), player_index(player_index) {};
   InputEvent keypressed;
   int new_node_to_point;
-  bool am_i_r1;
+  int player_index;
   int input_idx;
 };
 

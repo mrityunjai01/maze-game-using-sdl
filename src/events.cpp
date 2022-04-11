@@ -2,19 +2,19 @@
 /**
  * @file events.cpp
  * @author your name (you@domain.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2022-04-11
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 #include "events.h"
 /**
  * @brief Handles an event on client side
- * 
- * @param e 
- * @param prev_node_selected 
+ *
+ * @param e
+ * @param prev_node_selected
  */
 void handle_event(SDL_Event e, int& prev_node_selected) {
   if (e.type==SDL_QUIT) running = false;
@@ -43,11 +43,6 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
       switch(e.type)
       {
         case SDL_MOUSEBUTTONDOWN:{
-          // int ie = DirectionChange;
-          // ENetPacket* packet = enet_packet_create(&ie, sizeof ie, ENET_PACKET_FLAG_RELIABLE);
-          // Send the packet to all connected peers on channel 0
-          // enet_peer_send(peer, 0, packet);
-          // enet_packet_destroy(packet);
 
           Mix_PlayChannel(-1, click_sfx, 0);
           int closest_node_to_click = closest_node(nodes, e.button.x, e.button.y);
@@ -65,7 +60,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
           prev_node_selected = closest_node_to_click;
           r1.setDir(nodes[closest_node_to_click].pos.x, nodes[closest_node_to_click].pos.y);
 
-          // current_inp = PlayerInput(DirectionChange, closest_node_to_click, current_inp_idx++, am_i_r1);
+          current_inp = PlayerInput(DirectionChange, closest_node_to_click, ++current_inp_idx, player_index);
 
           // std::cout << r1.pos.x << ", " << r1.pos.y << '\n';
           break;
@@ -82,7 +77,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
             for (Vector2f& d: yulus) {
               if (squared_dist(d, r1.pos.x, r1.pos.y) < min_yulu_dist) {
                 Mix_PlayChannel(-1, yulu_sfx, 0);
-                r1.speed = std::min(r1.speed + 1, 6.0f);
+                r1.speed = std::min(r1.speed + 3, 40.0f);
               }
             }
             for (Vector2f& d: amuls) {
@@ -96,13 +91,14 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
               if (squared_dist(d, r1.pos.x, r1.pos.y) < min_prof_dist) {
                 Mix_PlayChannel(-1, prof_sfx, 0);
                 r1.speed *= 0.8;
-                r1.speed = std::max(r1.speed, 2.0f);
+                r1.speed = std::max(r1.speed, 4.0f);
               }
             }
             r1.step();
-            // current_inp = PlayerInput(SpaceKey, -1, current_inp_idx++, am_i_r1);
 
-            // std::cout << r1.pos.x << ", " << r1.pos.y << '\n';
+            current_inp = PlayerInput(SpaceKey, -1, ++current_inp_idx, player_index);
+
+            std::cout << r1.pos.x << ", " << r1.pos.y << '\n';
           }
           else if (e.key.keysym.sym ==SDLK_F1) {
             screen = HelpScreen;

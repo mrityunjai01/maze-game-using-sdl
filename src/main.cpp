@@ -49,6 +49,7 @@ int main(int argc, char* argv[]) {
   iitd_map_texture = window.loadTexture("res/gfx/iitd_map.png");
   help_texture = window.loadTexture("res/gfx/help_screen.png");
   runner_texture = window.loadTexture("res/gfx/run.png");
+  runner_other_texture = window.loadTexture("res/gfx/run.png");
   yellow_flag = window.loadTexture("res/gfx/icons8-flag-64_yellow.png");
   blue_flag = window.loadTexture("res/gfx/icons8-flag-64_blue.png");
   dog = window.loadTexture("res/gfx/dog.png");

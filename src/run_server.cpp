@@ -1,12 +1,12 @@
 /**
  * @file run_server.cpp
  * @author your name (you@domain.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2022-04-11
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 #include <enet/enet.h>
 #include <stdio.h>
@@ -21,10 +21,10 @@
 // #include "map_data.h"
 /**
  * @brief The main function for running the server.
- * 
- * @param argc 
- * @param argv 
- * @return int 
+ *
+ * @param argc
+ * @param argv
+ * @return int
  */
 int main(int argc, char **argv){
   char* c1 = "1";
@@ -133,29 +133,35 @@ int main(int argc, char **argv){
           break;
         }
         case ENET_EVENT_TYPE_RECEIVE:{
-          memcpy(&player_input, (const void*) event.packet->data, sizeof (PlayerInput));
-          if (player_input.input_idx <= latest_input_idx) {
-            enet_packet_destroy (event.packet);
-            break;
+          // std::cout << "received something\n";
+          if (event.packet->dataLength == sizeof (PlayerInput))  {
+            // std::cout << "its a player input\n";
+            memcpy(&player_input, (const void*) event.packet->data, sizeof (PlayerInput));
+            // std::cout << "player index received " << player_input.input_idx << "\n";
+            if (player_input.input_idx <= latest_input_idx) {
+              enet_packet_destroy (event.packet);
+              break;
 
-          }
-          latest_input_idx = player_input.input_idx;
-          std::cout << "received from  "<< player_input.am_i_r1 << ": ";
-          if (event.peer == client1) {
-            std::cout << "client1";
-          }
-          else if (event.peer == client2) {
-            std::cout << "client2";
-          }
-          else {
-            std::cout << "cant";
-          }
+            }
+            latest_input_idx = player_input.input_idx;
+            std::cout << "received input from  "<< player_input.player_index<< ", with index "<< player_input.input_idx << '\n';
 
-          if (player_input.keypressed == NoInput) {
-            std::cout << "no inpu\n";
+            if (event.peer == client1) {
+              std::cout << "client1\n";
+            }
+            else if (event.peer == client2) {
+              std::cout << "client2\n";
+            }
+            else {
+              std::cout << "cant tell who i received from\n";
+            }
+
+            if (player_input.keypressed == NoInput) {
+              std::cout << "no input\n";
+            }
           }
-          else if (player_input.keypressed == SpaceKey) {
-            std::cout << "spacekey\n";
+          // else if (player_input.keypressed == SpaceKey) {
+          //   std::cout << "spacekey\n";
             // for (Vector2f& d: dogs) {
             //   if (squared_dist(d, r1.pos.x, r1.pos.y) < min_dog_dist) {
             //     Mix_PlayChannel(-1, dog_sfx, 0);
@@ -185,9 +191,9 @@ int main(int argc, char **argv){
             // }
             // r1.step();
 
-          }
-          else {
-            std::cout << "dir change\n";
+          // }
+          // else {
+          //   std::cout << "dir change\n";
             // int closest_node_to_click = closest_node(nodes, e.button.x, e.button.y);
             // // myfile << e.button.x << "," << e.button.y << '\n';
             // std::cout << e.button.x << "," << e.button.y << '\n';
@@ -211,9 +217,9 @@ int main(int argc, char **argv){
           // event.peer -> data,
           // event.channelID);
           /* Clean up the packet now that we're done using it. */
-          enet_packet_destroy (event.packet);
-          break;
-        }
+          // enet_packet_destroy (event.packet);
+          // break;
+        // }
 
 
         case ENET_EVENT_TYPE_DISCONNECT: {
