@@ -1,3 +1,13 @@
+/**
+ * @file run_client.cpp
+ * @author your name (you@domain.com)
+ * @brief 
+ * @version 0.1
+ * @date 2022-04-11
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <enet/enet.h>
 #include <stdio.h>
 #include <SDL2/SDL.h>
@@ -23,7 +33,10 @@
 #include "update_gamestate.h"
 #include "game_meta_constants.h"
 
-
+/**
+ * @brief The theme sound effect.
+ * 
+ */
 Mix_Chunk* theme_sfx;
 Mix_Chunk* theme_2_sfx;
 Mix_Chunk* select_one_sfx;
@@ -45,6 +58,10 @@ SDL_Texture* amul;
 SDL_Texture* blue_flag;
 SDL_Texture* yellow_flag;
 
+/**
+ * @brief The window to be rendered.
+ * 
+ */
 RenderWindow window;
 float health;
 bool running;
@@ -53,21 +70,38 @@ Screen screen;
 Runner r1;
 Runner r2;
 bool am_i_r1;
-
+/**
+ * @brief Player's latest input.
+ * 
+ */
 PlayerInput current_inp;
 int current_inp_idx;
-
+/**
+ * @brief The Server connection
+ * 
+ */
 ENetPeer* peer;
+/**
+ * @brief The client connection
+ * 
+ */
 ENetHost* client_host;
 
 bool theme_played, theme_2_played;
+/**
+ * @brief Vector of all the dogs.
+ * 
+ */
 std::vector<Vector2f> dogs;
 std::vector<Vector2f> profs;
 std::vector<Vector2f> yulus;
 std::vector<Vector2f> amuls;
 std::vector<Vector2f> new_spawnpoints;
 int all_spawnpoints_indices[50];
-
+/**
+ * @brief Initializes all the resources by reading them into memory.
+ * 
+ */
 void init() {
   // all_spawnpoints_indices.assign(50, 0);
   new_spawnpoints.reserve(50);
@@ -83,7 +117,13 @@ void init() {
 }
 
 
-
+/**
+ * @brief The main function for running the client.
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 int main(int argc, char **argv){
   if (enet_initialize () != 0)
   {

@@ -1,3 +1,13 @@
+/**
+ * @file run_server.cpp
+ * @author your name (you@domain.com)
+ * @brief 
+ * @version 0.1
+ * @date 2022-04-11
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <enet/enet.h>
 #include <stdio.h>
 #include <string>
@@ -9,7 +19,13 @@
 #include <random>
 #include "network_structs.h"
 // #include "map_data.h"
-
+/**
+ * @brief The main function for running the server.
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 int main(int argc, char **argv){
   char* c1 = "1";
   char* c2 = "2";

@@ -1,5 +1,21 @@
-#include "events.h"
 
+/**
+ * @file events.cpp
+ * @author your name (you@domain.com)
+ * @brief 
+ * @version 0.1
+ * @date 2022-04-11
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+#include "events.h"
+/**
+ * @brief Handles an event on client side
+ * 
+ * @param e 
+ * @param prev_node_selected 
+ */
 void handle_event(SDL_Event e, int& prev_node_selected) {
   if (e.type==SDL_QUIT) running = false;
   switch(screen) {
