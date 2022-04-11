@@ -67,6 +67,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
         }
         case SDL_KEYDOWN: {
           if (e.key.keysym.sym == SDLK_SPACE){
+            std::cout << "thats a space\n";
             for (Vector2f& d: dogs) {
               if (squared_dist(d, r1.pos.x, r1.pos.y) < min_dog_dist) {
                 Mix_PlayChannel(-1, dog_sfx, 0);

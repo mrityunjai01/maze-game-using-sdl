@@ -8,11 +8,9 @@
  * @copyright Copyright (c) 2022
  *
  */
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include <iostream>
 #include "entity.h"
-#include "runner.h"
+#include "runner_for_server.h"
 
 /**
  * @brief Construct a new Runner:: Runner object
@@ -21,7 +19,7 @@
  * @param p_tex
  * @param speed
  */
-Runner::Runner(Vector2f pos, SDL_Texture* p_tex, float speed): Entity {pos, p_tex}, speed{speed} {
+Runner::Runner(Vector2f pos): pos(pos) {
   current_x = 0;
   speed_multiplier = 1;
   dir_x = 0;

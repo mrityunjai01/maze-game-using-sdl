@@ -16,8 +16,11 @@
 #include <cstring>
 #include <chrono>
 #include <algorithm>
+#include <cassert>
 #include <random>
 #include "network_structs.h"
+#include "proc.h"
+#include "runner_for_server.h"
 // #include "map_data.h"
 /**
  * @brief The main function for running the server.
@@ -53,7 +56,8 @@ int main(int argc, char **argv){
                "An error occurred while trying to create an ENet server host.\n");
       exit (EXIT_FAILURE);
   }
-  GameStatus current_status(2, 3, 4, 1, 2, 3, 3, 1);
+  Vector2f start_point{100, 100}, end_point{300, 300};
+  GameStatus current_status(20, 100, start_point.x, start_point.y, 20, 100, end_point.x, end_point.y);
   bool running = true;
   ENetEvent event;
   ENetPeer* client1, *client2;
@@ -64,7 +68,10 @@ int main(int argc, char **argv){
 
   std::chrono::high_resolution_clock::time_point currentTime_ = std::chrono::high_resolution_clock::now(), newTime;
 
-  int latest_input_idx = -1;
+  int latest_input_idx_0 = -1;
+  int latest_input_idx_1 = -1;
+  Runner r1(Vector2f(100, 100)), r2(Vector2f(300, 300));
+
   float time_step = 20;
   char data[sizeof(GameStatus)];
   while (running) {
@@ -137,27 +144,52 @@ int main(int argc, char **argv){
           if (event.packet->dataLength == sizeof (PlayerInput))  {
             // std::cout << "its a player input\n";
             memcpy(&player_input, (const void*) event.packet->data, sizeof (PlayerInput));
+            assert (player_input.player_index == 0 || player_input.player_index == 1);
             // std::cout << "player index received " << player_input.input_idx << "\n";
-            if (player_input.input_idx <= latest_input_idx) {
+            if (player_input.player_index == 0 && player_input.input_idx <= latest_input_idx_0) {
               enet_packet_destroy (event.packet);
               break;
-
             }
-            latest_input_idx = player_input.input_idx;
-            std::cout << "received input from  "<< player_input.player_index<< ", with index "<< player_input.input_idx << '\n';
-
-            if (event.peer == client1) {
-              std::cout << "client1\n";
+            else if (player_input.player_index == 0){
+              latest_input_idx_0 = player_input.input_idx;
             }
-            else if (event.peer == client2) {
-              std::cout << "client2\n";
+            else if (player_input.player_index == 1 && player_input.input_idx <= latest_input_idx_1) {
+              enet_packet_destroy (event.packet);
+              break;
+            }
+            else if (player_input.player_index == 1){
+              latest_input_idx_1 = player_input.input_idx;
             }
             else {
-              std::cout << "cant tell who i received from\n";
+              std::cout << "assert fails, " << player_input.player_index << ", " << player_input.input_idx << ", " << latest_input_idx_0 << ", " << latest_input_idx_1 << '\n';
+              assert(false);
             }
 
-            if (player_input.keypressed == NoInput) {
-              std::cout << "no input\n";
+            std::cout << "received input from  "<< player_input.player_index<< ", with index "<< player_input.input_idx << '\n';
+
+
+            switch(player_input.keypressed) {
+              case SpaceKey: {
+                if (player_input.player_index == 0) {
+
+                }
+                else {
+
+                }
+              }
+              case DirectionChange: {
+                if (player_input.player_index == 0) {
+                  r1.step();
+                  current_status.x1 = r1.pos.x;
+                  current_status.y1 = r1.pos.y;
+                }
+                else {
+                  r2.step();
+                  current_status.x2 = r2.pos.x;
+                  current_status.y2 = r2.pos.y;
+                }
+              }
+
             }
           }
           // else if (player_input.keypressed == SpaceKey) {
