@@ -1,0 +1,20 @@
+<map id="src/run_client.cpp" name="src/run_client.cpp">
+<area shape="rect" id="node13" href="$render__window_8h_source.html" title="render_window.h" alt="" coords="774,379,894,405"/>
+<area shape="rect" id="node17" href="$runner_8h_source.html" title="runner.h" alt="" coords="763,453,832,480"/>
+<area shape="rect" id="node18" href="$node_8h_source.html" title="node.h" alt="" coords="380,453,442,480"/>
+<area shape="rect" id="node19" href="$utils_8h_source.html" title="utils.h" alt="" coords="416,304,473,331"/>
+<area shape="rect" id="node20" href="$screens_8h_source.html" title="screens.h" alt="" coords="904,155,982,181"/>
+<area shape="rect" id="node22" href="$game__objects_8h_source.html" title="game_objects.h" alt="" coords="991,229,1106,256"/>
+<area shape="rect" id="node24" href="$game__meta__constants_8h_source.html" title="game_meta_constants.h" alt="" coords="802,229,967,256"/>
+<area shape="rect" id="node25" href="$map__data_8h_source.html" title="map_data.h" alt="" coords="180,304,271,331"/>
+<area shape="rect" id="node26" href="$constants_8h_source.html" title="constants.h" alt="" coords="1362,155,1452,181"/>
+<area shape="rect" id="node27" href="$events_8h_source.html" title="events.h" alt="" coords="1640,80,1712,107"/>
+<area shape="rect" id="node29" href="$network__structs_8h_source.html" title="network_structs.h" alt="" coords="1544,229,1670,256"/>
+<area shape="rect" id="node30" href="$cleanup_8h_source.html" title="cleanup.h" alt="" coords="1898,229,1977,256"/>
+<area shape="rect" id="node31" href="$update__gamestate_8h_source.html" title="update_gamestate.h" alt="" coords="1018,80,1158,107"/>
+<area shape="rect" id="node14" href="$entity_8h_source.html" title="entity.h" alt="" coords="837,528,902,555"/>
+<area shape="rect" id="node16" href="$proc_8h_source.html" title="proc.h" alt="" coords="516,603,575,629"/>
+<area shape="rect" id="node21" href="$assets_8h_source.html" title="assets.h" alt="" coords="1282,304,1354,331"/>
+<area shape="rect" id="node23" href="$map__data__extern_8h_source.html" title="map_data_extern.h" alt="" coords="548,304,682,331"/>
+<area shape="rect" id="node28" href="$send__input_8h_source.html" title="send_input.h" alt="" coords="1628,155,1724,181"/>
+</map>
