@@ -1,7 +1,7 @@
 #include "screens.h"
 /**
  * @brief Shows the screen at the moment
- * 
+ *
  */
 void show_screen() {
   switch (screen) {
@@ -25,9 +25,6 @@ void show_screen() {
       }
       window.render_theme(3200, 1800, iitd_map_texture);
 
-      for (Node n: nodes){
-        window.render_node(n, blue_flag, yellow_flag);
-      }
       for (Vector2f d: dogs) {
         window.render_dog(d, dog);
       }
@@ -40,9 +37,12 @@ void show_screen() {
       for (Vector2f d: amuls) {
         window.render_prof(d, amul);
       }
+      for (Node n: nodes){
+        window.render_node(n, blue_flag, yellow_flag);
+      }
       window.render_runner(r1);
       window.render_runner(r2);
-      window.render_healthbar(health);
+      window.render_healthbar(r1.health);
       window.render_speedbar(r1.speed);
       break;
     }

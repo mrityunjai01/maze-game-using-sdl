@@ -120,7 +120,7 @@ void RenderWindow::render_runner(Runner& rnr) {
  */
 void RenderWindow::render_node(Node& node, SDL_Texture*& blue_flag, SDL_Texture*& yellow_flag ) {
   SDL_Rect r = {0, 0, 64, 64};
-  SDL_Rect d = {node.pos.x - 10, node.pos.y - 10, 20, 20};
+  SDL_Rect d = {node.pos.x - 20, node.pos.y - 20, 40, 40};
   if (node.getSelected()) {
     SDL_RenderCopy(renderer, yellow_flag, &r , &d);
 

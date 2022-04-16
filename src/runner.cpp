@@ -46,14 +46,14 @@ float Runner::get_speed() {
 void Runner::step() {
   pos.x += (dir_x * get_speed());
   pos.y += (dir_y * get_speed());
-  std::cout << "new pos " << pos.x << ", " << pos.y << '\n';
+  // std::cout << "new pos " << pos.x << ", " << pos.y << '\n';
   if (!diversity) {
     current_x = (current_x + 75) % 600;
   }
   else {
     current_x = (current_x + 64) % 128;
   }
-  std::cout << "current_x is now " << current_x << '\n';
+  // std::cout << "current_x is now " << current_x << '\n';
 
 }
 

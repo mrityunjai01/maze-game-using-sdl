@@ -15,4 +15,5 @@
 
 extern ENetPeer* peer;
 extern ENetHost* client_host;
+extern int k;
 void handle_event(SDL_Event e, int& prev_node_selected);

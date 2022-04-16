@@ -58,6 +58,7 @@ SDL_Texture* amul;
 SDL_Texture* blue_flag;
 SDL_Texture* yellow_flag;
 
+
 /**
  * @brief The window to be rendered.
  *
@@ -98,6 +99,7 @@ std::vector<Vector2f> yulus;
 std::vector<Vector2f> amuls;
 std::vector<Vector2f> new_spawnpoints;
 int all_spawnpoints_indices[50];
+int k = 0;
 /**
  * @brief Initializes all the resources by reading them into memory.
  *
