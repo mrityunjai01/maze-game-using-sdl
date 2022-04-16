@@ -13,6 +13,7 @@
 #include <iostream>
 #include "entity.h"
 #include "runner.h"
+#include "game_meta_constants.h"
 
 /**
  * @brief Construct a new Runner:: Runner object
@@ -31,8 +32,8 @@ Runner::Runner(Vector2f pos, SDL_Texture* p_tex, float speed): Entity {pos, p_te
 
 /**
  * @brief Get the speed of the runner
- * 
- * @return float 
+ *
+ * @return float
  */
 float Runner::get_speed() {
   return speed_multiplier * (float) speed;
@@ -40,21 +41,27 @@ float Runner::get_speed() {
 
 /**
  * @brief Make the Runner take one step
- * 
+ *
  */
 void Runner::step() {
   pos.x += (dir_x * get_speed());
   pos.y += (dir_y * get_speed());
   std::cout << "new pos " << pos.x << ", " << pos.y << '\n';
-  current_x = (current_x + 75) % 600;
+  if (!diversity) {
+    current_x = (current_x + 75) % 600;
+  }
+  else {
+    current_x = (current_x + 64) % 128;
+  }
+  std::cout << "current_x is now " << current_x << '\n';
 
 }
 
 /**
  * @brief Sets the direction of the runner to the specified coordinates (to_x, to_y)
- * 
- * @param to_x 
- * @param to_y 
+ *
+ * @param to_x
+ * @param to_y
  */
 void Runner::setDir(float to_x, float to_y) {
   float l = sqrt((to_x - pos.x)*(to_x - pos.x) + (to_y - pos.y)* (to_y - pos.y) );

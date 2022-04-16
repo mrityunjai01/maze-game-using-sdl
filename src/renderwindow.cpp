@@ -1,12 +1,12 @@
 /**
  * @file renderwindow.cpp
  * @author your name (you@domain.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2022-04-11
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -14,16 +14,17 @@
 
 #include "render_window.h"
 #include "entity.h"
+#include "game_meta_constants.h"
 #include "constants.h"
 // #include "screens.h"
 #include "node.h"
 
 /**
  * @brief Construct a new Render Window:: Render Window object
- * 
- * @param p_title 
- * @param p_w 
- * @param p_h 
+ *
+ * @param p_title
+ * @param p_w
+ * @param p_h
  */
 RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h) : window(NULL), renderer(NULL) {
   window = SDL_CreateWindow(p_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, p_w, p_h, SDL_WINDOW_SHOWN);
@@ -35,9 +36,9 @@ RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h) : window(NULL)
 
 /**
  * @brief Loads a texture to render into the window.
- * 
- * @param p_filePath 
- * @return SDL_Texture* 
+ *
+ * @param p_filePath
+ * @return SDL_Texture*
  */
 SDL_Texture* RenderWindow::loadTexture(const char* p_filePath) {
   SDL_Texture* texture = NULL;
@@ -48,7 +49,7 @@ SDL_Texture* RenderWindow::loadTexture(const char* p_filePath) {
 
 /**
  * @brief Clears the window
- * 
+ *
  */
 void RenderWindow::clear() {
   SDL_RenderClear(renderer);
@@ -56,11 +57,11 @@ void RenderWindow::clear() {
 
 /**
  * @brief Sets the color of the renderer
- * 
- * @param r 
- * @param g 
- * @param b 
- * @param a 
+ *
+ * @param r
+ * @param g
+ * @param b
+ * @param a
  */
 void RenderWindow::set_color(int r, int g, int b, int a) {
   SDL_SetRenderDrawColor(renderer, r, g, b, a);
@@ -69,8 +70,8 @@ void RenderWindow::set_color(int r, int g, int b, int a) {
 
 /**
  * @brief Gets the refresh rate of the screen.
- * 
- * @return int 
+ *
+ * @return int
  */
 int RenderWindow::getRefreshRate() {
   int displayIndex = SDL_GetWindowDisplayIndex(window);
@@ -81,8 +82,8 @@ int RenderWindow::getRefreshRate() {
 
 /**
  * @brief Renders an Entity
- * 
- * @param p_ent 
+ *
+ * @param p_ent
  */
 void RenderWindow::render_entity(Entity& p_ent) {
   SDL_Rect r = {p_ent.getCurrentFrame().x, p_ent.getCurrentFrame().y, p_ent.getCurrentFrame().w, p_ent.getCurrentFrame().h};
@@ -92,21 +93,30 @@ void RenderWindow::render_entity(Entity& p_ent) {
 
 /**
  * @brief Renders a runner
- * 
- * @param rnr 
+ *
+ * @param rnr
  */
 void RenderWindow::render_runner(Runner& rnr) {
-  SDL_Rect r = {rnr.current_x, 0, 75, 132};
-  SDL_Rect d = {rnr.pos.x - 30, rnr.pos.y - 104, 60, 104};
+  SDL_Rect r, d;
+  if (!diversity) {
+
+    r = {rnr.current_x, 0, 75, 132};
+    d = {rnr.pos.x - 30, rnr.pos.y - 104, 60, 104};
+  }
+  else {
+    r = {rnr.current_x, 0, 64, 64};
+    d = {rnr.pos.x - 32, rnr.pos.y - 64, 64, 64};
+
+  }
   SDL_RenderCopy(renderer, rnr.getTexture(), &r , &d);
 }
 
 /**
  * @brief Renders a node
- * 
- * @param node 
- * @param blue_flag 
- * @param yellow_flag 
+ *
+ * @param node
+ * @param blue_flag
+ * @param yellow_flag
  */
 void RenderWindow::render_node(Node& node, SDL_Texture*& blue_flag, SDL_Texture*& yellow_flag ) {
   SDL_Rect r = {0, 0, 64, 64};
@@ -123,11 +133,11 @@ void RenderWindow::render_node(Node& node, SDL_Texture*& blue_flag, SDL_Texture*
 
 /**
  * @brief Renders an edge
- * 
- * @param x1 
- * @param y1 
- * @param x2 
- * @param y2 
+ *
+ * @param x1
+ * @param y1
+ * @param x2
+ * @param y2
  */
 void RenderWindow::render_edge(float x1, float y1, float x2, float y2) {
   // thicklineRGBA(renderer, x1, x2, y1, y2, 10, 255, 0, 0, 255);
@@ -135,9 +145,9 @@ void RenderWindow::render_edge(float x1, float y1, float x2, float y2) {
 
 /**
  * @brief Renders a dog
- * 
- * @param v 
- * @param dog 
+ *
+ * @param v
+ * @param dog
  */
 void RenderWindow::render_dog(Vector2f v, SDL_Texture*& dog) {
   SDL_Rect r = {0, 0, 860, 990};
@@ -148,9 +158,9 @@ void RenderWindow::render_dog(Vector2f v, SDL_Texture*& dog) {
 
 /**
  * @brief Renders a prof
- * 
- * @param v 
- * @param prof 
+ *
+ * @param v
+ * @param prof
  */
 void RenderWindow::render_prof(Vector2f v, SDL_Texture*& prof) {
   SDL_Rect r = {0, 0, 800, 1060};
@@ -163,8 +173,8 @@ void RenderWindow::render_prof(Vector2f v, SDL_Texture*& prof) {
 
 /**
  * @brief Renders the health bar
- * 
- * @param h 
+ *
+ * @param h
  */
 void RenderWindow::render_healthbar(float h) {
   int height = h * 200;
@@ -178,8 +188,8 @@ void RenderWindow::render_healthbar(float h) {
 
 /**
  * @brief Renders the speed bar
- * 
- * @param speed 
+ *
+ * @param speed
  */
 void RenderWindow::render_speedbar(float speed) {
   int height = round(speed * 2);
@@ -193,10 +203,10 @@ void RenderWindow::render_speedbar(float speed) {
 
 /**
  * @brief Renders the theme
- * 
- * @param w 
- * @param h 
- * @param p_tex 
+ *
+ * @param w
+ * @param h
+ * @param p_tex
  */
 void RenderWindow::render_theme(int w, int h, SDL_Texture*& p_tex) {
   SDL_Rect r = {0, 0, w, h};
@@ -206,7 +216,7 @@ void RenderWindow::render_theme(int w, int h, SDL_Texture*& p_tex) {
 
 /**
  * @brief Displays the rendered screen
- * 
+ *
  */
 
 void RenderWindow::display() {
@@ -215,7 +225,7 @@ void RenderWindow::display() {
 
 /**
  * @brief Cleans up the window
- * 
+ *
  */
 void RenderWindow::cleanUp() {
   SDL_DestroyWindow(window);

@@ -192,8 +192,6 @@ int main(int argc, char **argv){
   theme_background_texture = window.loadTexture("res/gfx/background.png");
   iitd_map_texture = window.loadTexture("res/gfx/iitd_map.png");
   help_texture = window.loadTexture("res/gfx/help_screen.png");
-  runner_texture = window.loadTexture("res/gfx/run.png");
-  runner_other_texture = window.loadTexture("res/gfx/run_other.png");
   yellow_flag = window.loadTexture("res/gfx/icons8-flag-64_yellow.png");
   blue_flag = window.loadTexture("res/gfx/icons8-flag-64_blue.png");
   dog = window.loadTexture("res/gfx/dog.png");
@@ -201,9 +199,24 @@ int main(int argc, char **argv){
   amul = window.loadTexture("res/gfx/amul.png");
   prof = window.loadTexture("res/gfx/prof.png");
 
-  r1 = Runner(Vector2f(200, 200), runner_texture, 20);
-  r2 = Runner(Vector2f(400, 400), runner_other_texture, 20);
+  if (!diversity) {
 
+    runner_texture = window.loadTexture("res/gfx/run.png");
+    runner_other_texture = window.loadTexture("res/gfx/run_other.png");
+    r1 = Runner(Vector2f(200, 200), runner_texture, 20);
+    r2 = Runner(Vector2f(400, 400), runner_other_texture, 20);
+  }
+  else {
+
+    std::string runner_type1 (argv[1]), runner_type2(argv[2]);
+    std::string first_file = "res/gfx/" + runner_type1 + ".png";
+    std::string second_file = "res/gfx/" + runner_type2 + ".png";
+    runner_texture = window.loadTexture(first_file.c_str());
+    runner_other_texture = window.loadTexture(second_file.c_str());
+    r1 = Runner(Vector2f(200, 200), runner_texture, 20);
+    r2 = Runner(Vector2f(400, 400), runner_other_texture, 20);
+
+  }
   int windowRefreshRate = window.getRefreshRate();
   std::cout << windowRefreshRate << " FPS\n";
   Screen screen = ThemeScreen;
