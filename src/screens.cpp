@@ -1,4 +1,8 @@
 #include "screens.h"
+/**
+ * @brief Shows the screen at the moment
+ * 
+ */
 void show_screen() {
   switch (screen) {
     case ThemeScreen: {

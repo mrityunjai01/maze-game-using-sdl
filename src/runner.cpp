@@ -29,9 +29,19 @@ Runner::Runner(Vector2f pos, SDL_Texture* p_tex, float speed): Entity {pos, p_te
 
 }
 
+/**
+ * @brief Get the speed of the runner
+ * 
+ * @return float 
+ */
 float Runner::get_speed() {
   return speed_multiplier * (float) speed;
 }
+
+/**
+ * @brief Make the Runner take one step
+ * 
+ */
 void Runner::step() {
   pos.x += (dir_x * get_speed());
   pos.y += (dir_y * get_speed());
@@ -40,6 +50,12 @@ void Runner::step() {
 
 }
 
+/**
+ * @brief Sets the direction of the runner to the specified coordinates (to_x, to_y)
+ * 
+ * @param to_x 
+ * @param to_y 
+ */
 void Runner::setDir(float to_x, float to_y) {
   float l = sqrt((to_x - pos.x)*(to_x - pos.x) + (to_y - pos.y)* (to_y - pos.y) );
   if (l < 1e-4) {

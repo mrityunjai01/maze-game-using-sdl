@@ -1,4 +1,9 @@
 #include "update_gamestate.h"
+/**
+ * @brief Updates the gamestate based on the parameter status.
+ * 
+ * @param status 
+ */
 
 void update_gamestate(GameStatus* status) {
   if (player_index == 0) {
