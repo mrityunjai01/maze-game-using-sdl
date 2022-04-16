@@ -23,7 +23,11 @@
 #include "runner_for_server.h"
 #include "map_data_for_server.h"
 
-// #include "map_data.h"
+std::vector<Vector2f> dogs;
+std::vector<Vector2f> profs;
+std::vector<Vector2f> yulus;
+std::vector<Vector2f> amuls;
+std::vector<Vector2f> new_spawnpoints;
 /**
  * @brief The main function for running the server.
  *
@@ -40,6 +44,16 @@ int main(int argc, char **argv){
   std::mt19937 rng(static_cast<uint32_t>(time(0)));
   std::shuffle(spawnpoint_indices, spawnpoint_indices+50, rng);
 
+
+  for (int i = 0; i < 50; i++) {
+    new_spawnpoints[i] = all_spawnpoints[all_spawnpoints_indices[i]];
+  }
+  dogs = {new_spawnpoints.begin(), new_spawnpoints.begin() + 20};
+
+  profs = {new_spawnpoints.begin() + 20, new_spawnpoints.begin() + 35};
+
+  yulus = {new_spawnpoints.begin() + 35, new_spawnpoints.begin() + 40};
+  amuls = {new_spawnpoints.begin() + 40, new_spawnpoints.begin() + 45};
 
   if (enet_initialize () != 0)
   {
@@ -175,14 +189,66 @@ int main(int argc, char **argv){
               case SpaceKey: {
                 std::cout << "the input is a space\n";
                 if (player_input.player_index == 0) {
+                  for (Vector2f& d: dogs) {
+                    if (squared_dist(d, r1.pos.x, r1.pos.y) < min_dog_dist) {
+                      r1.health -= 0.02;
+                      r1.health = std::max(r1.health, 0.0f);
+                    }
+                  }
+                  for (Vector2f& d: yulus) {
+                    if (squared_dist(d, r1.pos.x, r1.pos.y) < min_yulu_dist) {
+                      r1.speed = std::min(r1.speed + 3, 40.0f);
+                    }
+                  }
+                  for (Vector2f& d: amuls) {
+                    if (squared_dist(d, r1.pos.x, r1.pos.y) < min_amul_dist) {
+                      r1.health += 0.2;
+                      r1.health = std::min(r1.health, 1.0f);
+                    }
+                  }
+                  for (Vector2f& d: profs) {
+                    if (squared_dist(d, r1.pos.x, r1.pos.y) < min_prof_dist) {
+                      r1.speed *= 0.8;
+                      r1.speed = std::max(r1.speed, 4.0f);
+                    }
+                  }
                   r1.step();
+
                   current_status.x1 = r1.pos.x;
                   current_status.y1 = r1.pos.y;
+                  current_status.s1 = r1.speed;
+                  current_status.h1 = r1.health;
+
                 }
                 else {
+                  for (Vector2f& d: dogs) {
+                    if (squared_dist(d, r1.pos.x, r1.pos.y) < min_dog_dist) {
+                      r1.health -= 0.02;
+                      r1.health = std::max(r1.health, 0.0f);
+                    }
+                  }
+                  for (Vector2f& d: yulus) {
+                    if (squared_dist(d, r1.pos.x, r1.pos.y) < min_yulu_dist) {
+                      r1.speed = std::min(r1.speed + 3, 40.0f);
+                    }
+                  }
+                  for (Vector2f& d: amuls) {
+                    if (squared_dist(d, r1.pos.x, r1.pos.y) < min_amul_dist) {
+                      r1.health += 0.2;
+                      r1.health = std::min(r1.health, 1.0f);
+                    }
+                  }
+                  for (Vector2f& d: profs) {
+                    if (squared_dist(d, r1.pos.x, r1.pos.y) < min_prof_dist) {
+                      r1.speed *= 0.8;
+                      r1.speed = std::max(r1.speed, 4.0f);
+                    }
+                  }
                   r2.step();
                   current_status.x2 = r2.pos.x;
                   current_status.y2 = r2.pos.y;
+                  current_status.s2 = r2.speed;
+                  current_status.h2 = r2.health;
                 }
                 break;
               }

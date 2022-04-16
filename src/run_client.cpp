@@ -109,6 +109,11 @@ void init() {
   new_spawnpoints.reserve(50);
 
   health = 1.0;
+  adjacency.assign(std::vector<int>());
+  for (ste::pair<int, int> edge: edges) {
+    adjacency[edge.first].push_back(edge.second);
+    adjacency[edge.second].push_back(edge.first);
+  }
 
   // std::mt19937 rng(static_cast<uint32_t>(time(0)));
   // std::shuffle(all_spawnpoints.begin(), all_spawnpoints.end(), rng);

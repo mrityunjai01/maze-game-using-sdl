@@ -10,3 +10,6 @@ extern std::vector<Vector2f> yulus;
 extern std::vector<Vector2f> amuls;
 
 extern float health;
+
+extern int from_node, to_node;
+extern bool at_node, at_edge;
