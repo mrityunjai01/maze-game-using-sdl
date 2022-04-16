@@ -1,4 +1,13 @@
 
+# File screens\_8h.md
+
+[**File List**](files.md) **>** [**screens\_8h.md**](screens__8h_8md.md)
+
+[Go to the documentation of this file.](screens__8h_8md.md) 
+
+
+````cpp
+
 # File screens.h
 
 
@@ -41,7 +50,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  void | [**show\_screen**](screens_8h.md#function-show-screen) () <br>_Shows the screen at the moment._  |
+|  void | [**show\_screen**](screens_8h.md#function-show-screen) () <br> |
 
 
 
@@ -99,3 +108,5 @@ void show_screen ()
 
 ------------------------------
 The documentation for this class was generated from the following file `include/screens.h`
+````
+

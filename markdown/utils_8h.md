@@ -36,8 +36,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  int | [**closest\_node**](utils_8h.md#function-closest-node) (std::vector&lt; [**Node**](classNode.md) &gt; & nodes, float x, float y) <br> |
-|  float | [**squared\_dist**](utils_8h.md#function-squared-dist) ([**Vector2f**](structVector2f.md) v, float x, float y) <br> |
+|  int | [**closest\_node**](utils_8h.md#function-closest-node) (std::vector&lt; [**Node**](classNode.md) &gt; & nodes, float x, float y) <br>_Returns the node closest to (x, y) in nodes._  |
+|  float | [**squared\_dist**](utils_8h.md#function-squared-dist) ([**Vector2f**](structVector2f.md) v, float x, float y) <br>_Returns the squared distance between pos and (x, y)_  |
 
 
 
@@ -62,6 +62,25 @@ int closest_node (
 
 
 
+
+**Parameters:**
+
+
+* `nodes` 
+* `x` 
+* `y` 
+
+
+
+**Returns:**
+
+int 
+
+
+
+
+        
+
 ### function squared\_dist 
 
 
@@ -74,6 +93,25 @@ float squared_dist (
 ```
 
 
+
+
+**Parameters:**
+
+
+* `pos` 
+* `x` 
+* `y` 
+
+
+
+**Returns:**
+
+float 
+
+
+
+
+        
 
 ------------------------------
 The documentation for this class was generated from the following file `include/utils.h`

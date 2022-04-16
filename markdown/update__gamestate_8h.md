@@ -38,7 +38,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  void | [**update\_gamestate**](update__gamestate_8h.md#function-update-gamestate) ([**GameStatus**](structGameStatus.md) \* status) <br> |
+|  void | [**update\_gamestate**](update__gamestate_8h.md#function-update-gamestate) ([**GameStatus**](structGameStatus.md) \* status) <br>_Updates the gamestate based on the parameter status._  |
 
 
 
@@ -60,6 +60,16 @@ void update_gamestate (
 ```
 
 
+
+
+**Parameters:**
+
+
+* `status` 
+
+
+
+        
 
 ------------------------------
 The documentation for this class was generated from the following file `include/update_gamestate.h`

@@ -1,4 +1,13 @@
 
+# File classRunner.md
+
+[**File List**](files.md) **>** [**classRunner.md**](classRunner_8md.md)
+
+[Go to the documentation of this file.](classRunner_8md.md) 
+
+
+````cpp
+
 # Class Runner
 
 
@@ -58,11 +67,11 @@ See [Entity](classEntity.md)
 |   | [**Runner**](classRunner.md#function-runner-15) () <br> |
 |   | [**Runner**](classRunner.md#function-runner-45) ([**Vector2f**](structVector2f.md) pos, float speed) <br> |
 |   | [**Runner**](classRunner.md#function-runner-55) ([**Vector2f**](structVector2f.md) pos) <br>_Construct a new_ [_**Runner**_](classRunner.md) _::_[_**Runner**_](classRunner.md) _object._ |
-|  float | [**get\_speed**](classRunner.md#function-get-speed-12) () <br>_Get the speed of the runner._  |
 |  float | [**get\_speed**](classRunner.md#function-get-speed-12) () <br> |
-|  void | [**setDir**](classRunner.md#function-setdir-12) (float x, float y) <br>_Sets the direction of the runner to the specified coordinates (to\_x, to\_y)_  |
+|  float | [**get\_speed**](classRunner.md#function-get-speed-12) () <br> |
 |  void | [**setDir**](classRunner.md#function-setdir-12) (float x, float y) <br> |
-|  void | [**step**](classRunner.md#function-step-12) () <br>_Make the_ [_**Runner**_](classRunner.md) _take one step._ |
+|  void | [**setDir**](classRunner.md#function-setdir-12) (float x, float y) <br> |
+|  void | [**step**](classRunner.md#function-step-12) () <br> |
 |  void | [**step**](classRunner.md#function-step-12) () <br> |
 
 ## Public Functions inherited from Entity
@@ -281,16 +290,6 @@ float Runner::get_speed ()
 
 
 
-
-**Returns:**
-
-float 
-
-
-
-
-        
-
 ### function get\_speed [1/2]
 
 
@@ -311,17 +310,6 @@ void Runner::setDir (
 ```
 
 
-
-
-**Parameters:**
-
-
-* `to_x` 
-* `to_y` 
-
-
-
-        
 
 ### function setDir [1/2]
 
@@ -355,3 +343,5 @@ void Runner::step ()
 
 ------------------------------
 The documentation for this class was generated from the following file `include/runner.h`
+````
+

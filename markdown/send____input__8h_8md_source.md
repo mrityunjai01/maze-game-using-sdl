@@ -1,4 +1,13 @@
 
+# File send\_\_input\_8h.md
+
+[**File List**](files.md) **>** [**send\_\_input\_8h.md**](send____input__8h_8md.md)
+
+[Go to the documentation of this file.](send____input__8h_8md.md) 
+
+
+````cpp
+
 # File send\_input.h
 
 
@@ -36,7 +45,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  void | [**send\_input**](send__input_8h.md#function-send-input) () <br>_Sends the input to the server. This function should be called at regular intervals._  |
+|  void | [**send\_input**](send__input_8h.md#function-send-input) () <br> |
 
 
 
@@ -79,3 +88,5 @@ void send_input ()
 
 ------------------------------
 The documentation for this class was generated from the following file `include/send_input.h`
+````
+
