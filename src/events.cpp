@@ -55,21 +55,43 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
           }
 
           // std::cout << "the closest node " <<closest_node_to_click << " pos "<<nodes[closest_node_to_click].pos.x << ", "<<nodes[closest_node_to_click].pos.y<< '\n';
-          std::cout << closest_node_to_click << " ";
-          k++;
-          if (k%2==0) std::cout << '\n';
-          nodes[prev_node_selected].setSelected(false);
-          nodes[closest_node_to_click].setSelected(true);
-          prev_node_selected = closest_node_to_click;
-          r1.setDir(nodes[closest_node_to_click].pos.x, nodes[closest_node_to_click].pos.y);
+          // std::cout << closest_node_to_click << " ";
+          // k++;
+          // if (k%2==0) std::cout << '\n';
 
-          current_inp = PlayerInput(DirectionChange, closest_node_to_click, ++current_inp_idx, player_index);
+          if (at_edge) {
+            if (closest_node_to_click == from_node) {
+
+              nodes[prev_node_selected].setSelected(false);
+              nodes[closest_node_to_click].setSelected(true);
+              prev_node_selected = closest_node_to_click;
+              r1.setDir(nodes[closest_node_to_click].pos.x, nodes[closest_node_to_click].pos.y);
+
+              current_inp = PlayerInput(DirectionChange, closest_node_to_click, ++current_inp_idx, player_index);
+            }
+            break;
+          }
+          else {
+
+            if (std::find (adjacency[curr_node].begin(), adjacency[curr_node].end(), closest_node_to_click ) != adjacency[curr_node].end()) {
+
+              nodes[prev_node_selected].setSelected(false);
+              nodes[closest_node_to_click].setSelected(true);
+              prev_node_selected = closest_node_to_click;
+              r1.setDir(nodes[closest_node_to_click].pos.x, nodes[closest_node_to_click].pos.y);
+
+              current_inp = PlayerInput(DirectionChange, closest_node_to_click, ++current_inp_idx, player_index);
+            }
+          }
 
           // std::cout << r1.pos.x << ", " << r1.pos.y << '\n';
           break;
         }
         case SDL_KEYDOWN: {
           if (e.key.keysym.sym == SDLK_SPACE){
+            if (at_node)  {
+              break;
+            }
             // std::cout << "thats a space\n";
             for (Vector2f& d: dogs) {
               if (squared_dist(d, r1.pos.x, r1.pos.y) < min_dog_dist) {
@@ -97,6 +119,11 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
                 r1.speed *= 0.8;
                 r1.speed = std::max(r1.speed, 4.0f);
               }
+            }
+            if (squared_dist(nodes[to_node].pos, r1.pos.x, r1.pos.y) < min_target_dist) {
+              at_node = true;
+              curr_node = to_node;
+              at_edge = false;
             }
             r1.step();
 
