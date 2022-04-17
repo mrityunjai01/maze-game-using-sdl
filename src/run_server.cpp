@@ -73,8 +73,8 @@ int main(int argc, char **argv){
                "An error occurred while trying to create an ENet server host.\n");
       exit (EXIT_FAILURE);
   }
-  Vector2f start_point{100, 100}, end_point{300, 300};
-  GameStatus current_status(10, 1, start_point.x, start_point.y, 10, 1, end_point.x, end_point.y);
+  // Vector2f start_point{100, 100}, end_point{300, 300};
+  GameStatus current_status(10, 1, nodes[0].pos.x, nodes[0].pos.y, 10, 1, nodes[0].pos.x, nodes[0].pos.y);
   bool running = true;
   ENetEvent event;
   ENetPeer* client1, *client2;

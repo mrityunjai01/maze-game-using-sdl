@@ -214,6 +214,12 @@ void RenderWindow::render_theme(int w, int h, SDL_Texture*& p_tex) {
   SDL_RenderCopy(renderer, p_tex, &r , &d);
 }
 
+void RenderWindow::render_checkpoint(int x, int y, SDL_Texture*& p_tex) {
+  SDL_Rect r = {0, 0, 900, 480};
+  SDL_Rect d = {x - 60, y - 64, 120, 64};
+  SDL_RenderCopy(renderer, p_tex, &r , &d);
+}
+
 /**
  * @brief Displays the rendered screen
  *

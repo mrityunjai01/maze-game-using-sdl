@@ -21,6 +21,7 @@ public:
   void render_node(Node& node, SDL_Texture*& blue_flag, SDL_Texture*& yellow_flag);
   void render_edge(float x1, float y1, float x2, float y2);
   void render_theme(int w, int h, SDL_Texture*& p_tex);
+  void render_checkpoint(int x, int y, SDL_Texture*& p_tex);
   void set_color (int r, int g, int b, int a);
   void display();
   int getRefreshRate();

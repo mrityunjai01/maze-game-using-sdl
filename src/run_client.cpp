@@ -13,6 +13,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -45,6 +46,8 @@ Mix_Chunk* dog_sfx;
 Mix_Chunk* prof_sfx;
 Mix_Chunk* yulu_sfx;
 Mix_Chunk* amul_sfx;
+Mix_Chunk* checkpoint1_sfx;
+Mix_Chunk* checkpoint2_sfx;
 SDL_Texture* theme_background_texture;
 SDL_Texture* iitd_map_texture;
 SDL_Texture* help_texture;
@@ -57,7 +60,13 @@ SDL_Texture* yulu;
 SDL_Texture* amul;
 SDL_Texture* blue_flag;
 SDL_Texture* yellow_flag;
-
+SDL_Texture* checkpoint_texture;
+SDL_Texture* win_texture;
+SDL_Texture* text_texture;
+SDL_Surface* text;
+TTF_Font* winning_font;
+// Set color to black
+SDL_Color color = { 0, 0, 0 };
 
 /**
  * @brief The window to be rendered.
@@ -124,8 +133,28 @@ void init() {
   if (!(IMG_Init(IMG_INIT_PNG))) std::cout << "IMG_Init failed\n" << SDL_GetError() << '\n';
   if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) std::cout << "audio cant init "<<SDL_GetError() << '\n';
 
+
+
+  if(TTF_Init()==-1) {
+      std::cout << "TTF init error" << TTF_GetError() << '\n';
+
+  }
+
+
+  winning_font = TTF_OpenFont("res/fonts/win_font.ttf", 24);
+  if ( !winning_font ) {
+  	std::cout << "Failed to load font: " << TTF_GetError() << '\n';
+  }
+
+
+
+
+
+
 }
 
+Checkpoint checkpoint1(Vector2f(nodes[20].pos.x, nodes[20].pos.y));
+Checkpoint checkpoint2(Vector2f(nodes[60].pos.x, nodes[60].pos.y));
 bool at_node = true;
 bool at_edge = false;
 int from_node = 0;
@@ -201,6 +230,8 @@ int main(int argc, char **argv){
   prof_sfx = Mix_LoadWAV("res/sounds/prof.mp3");
   amul_sfx = Mix_LoadWAV("res/sounds/amul.mpeg");
   yulu_sfx = Mix_LoadWAV("res/sounds/yulu.mpeg");
+  checkpoint1_sfx = Mix_LoadWAV("res/sounds/checkpoint 1.mp3");
+  checkpoint2_sfx = Mix_LoadWAV("res/sounds/youve won.mp3");
 
   window = RenderWindow("IITD Maze", SCREEN_W, SCREEN_H);
   theme_background_texture = window.loadTexture("res/gfx/background.png");
@@ -212,6 +243,8 @@ int main(int argc, char **argv){
   yulu = window.loadTexture("res/gfx/yulu.png");
   amul = window.loadTexture("res/gfx/amul.png");
   prof = window.loadTexture("res/gfx/prof.png");
+  checkpoint_texture = window.loadTexture("res/gfx/checkpoint.png");
+  win_texture = window.loadTexture("res/gfx/win_screen.png");
 
   if (!diversity) {
 

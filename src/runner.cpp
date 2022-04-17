@@ -27,6 +27,7 @@ Runner::Runner(Vector2f pos, SDL_Texture* p_tex, float speed): Entity {pos, p_te
   speed_multiplier = 1;
   dir_x = 0;
   dir_y = 1;
+  score = 0;
 
 }
 

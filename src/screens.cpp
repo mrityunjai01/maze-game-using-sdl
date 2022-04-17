@@ -25,6 +25,8 @@ void show_screen() {
       }
       window.render_theme(3200, 1800, iitd_map_texture);
 
+      window.render_checkpoint(checkpoint1.pos.x, checkpoint1.pos.y, checkpoint_texture);
+      window.render_checkpoint(checkpoint2.pos.x, checkpoint2.pos.y, checkpoint_texture);
       for (Vector2f d: dogs) {
         window.render_dog(d, dog);
       }
@@ -48,6 +50,10 @@ void show_screen() {
     }
     case HelpScreen: {
       window.render_theme(1000, 600, help_texture);
+      break;
+    }
+    case WinningScreen: {
+      window.render_theme(1000, 600, win_texture);
     }
   }
 }

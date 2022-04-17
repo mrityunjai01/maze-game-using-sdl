@@ -128,6 +128,27 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
               curr_node = to_node;
             }
             r1.step();
+            if (squared_dist(checkpoint1.pos, r1.pos.x, r1.pos.y) < min_target_dist) {
+              Mix_PlayChannel(-1, checkpoint1_sfx, 0);
+              r1.score += 100;
+
+              at_node = true;
+              at_edge = false;
+              curr_node = to_node;
+            }
+            if (squared_dist(checkpoint2.pos, r1.pos.x, r1.pos.y) < min_target_dist) {
+              Mix_PlayChannel(-1, checkpoint2_sfx, 0);
+              r1.score += 100;
+              SDL_Delay(200);
+
+              SDL_Color color = {0,0,0};
+              text = TTF_RenderText_Solid( winning_font, "You've won!", color );
+
+              screen = WinningScreen;
+              at_node = true;
+              at_edge = false;
+              curr_node = to_node;
+            }
 
             current_inp = PlayerInput(SpaceKey, -1, ++current_inp_idx, player_index);
 
