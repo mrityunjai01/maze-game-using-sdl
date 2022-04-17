@@ -52,10 +52,10 @@ run_client.o: src/run_client.cpp renderwindow.o entity.o node.o runner.o utils.o
 run_client: run_client.o renderwindow.o entity.o node.o runner.o utils.o cleanup.o screens.o events.o update_gamestate.o send_input.o
 	$(CC) -o run_client.out $^ $(flags) -lenet -Wl,-rpath -Wl,/usr/local/lib -g $(CFLAGS)
 
-run_server.o: src/run_server.cpp runner_for_server.o
+run_server.o: src/run_server.cpp runner_for_server.o utils.o node.o
 	$(CC) src/run_server.cpp -c -o run_server.o -g $(CFLAGS)
 
-run_server: run_server.o runner_for_server.o
+run_server: run_server.o runner_for_server.o utils.o node.o
 	$(CC) -o run_server.out $^ -lenet -Wl,-rpath -Wl,/usr/local/lib -g $(CFLAGS)
 
 release: main.o
