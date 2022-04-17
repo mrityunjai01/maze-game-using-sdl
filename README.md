@@ -13,11 +13,15 @@ you can alternatively do
 after making sc1 executable using ```chmod +x sc1```
 ### Compile the project
 ```
-make clean && make debug
+make clean && make run_client && make run_server
 ```
-### Run the binary
+### Run the server on one machine
 ```
-./bin/debug/main
+./run_server.out
+```
+### Run the client on the two machines
+```
+./run_client.out
 ```
 
 # Documentation
@@ -25,4 +29,49 @@ make clean && make debug
 We've documented every function in the code itself using comments.
 
 ### Reference Documentation
-We've hosted the reference documentation at [Documentation](https://mrityunjai01.github.io/maze-game-using-sdl/index.html).
+We've hosted the reference documentation at [Documentation](https://mrityunjai01.github.io/maze-game-using-sdl/index.html). You can also view the docs using mkdocs, ```mkdocs serve```
+
+# References
+### Code Management
+- https://stackoverflow.com/questions/10422034/when-to-use-extern-in-c
+- https://www.youtube.com/watch?v=KMNmkmjDia8
+- http://enet.bespin.org/Tutorial.html
+
+### Source Code
+- https://www.youtube.com/watch?v=KsG6dJlLBDw (a beginner's tutorial to SDL)
+- https://www.cplusplus.com/ (everything c++)
+- http://enet.bespin.org/Tutorial.html
+
+### an efficient use of Makefile
+- https://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/
+
+### Making doxygen docs
+- https://pages.cs.wisc.edu/~jignesh/cs564/notes/Doxygen.pdf
+- https://marketplace.visualstudio.com/items?itemName=cschlosser.doxdocgen
+
+### Making material docs
+- https://github.com/matusnovak/doxybook
+- https://squidfunk.github.io/mkdocs-material/
+
+### Enet
+- http://enet.bespin.org/
+
+### Assets
+#### Voices
+https://voicemaker.in/
+
+#### Sound Effects
+all dota2
+- https://dota2.fandom.com/wiki/Sniper
+- https://dota2.fandom.com/wiki/Viper
+
+#### Theme songs
+- https://www.marxists.org/history/ussr/sounds/index.htm
+- The rick roll song https://www.youtube.com/watch?v=dQw4w9WgXcQ
+
+#### Fonts
+- https://www.1001freefonts.com/d/5486/playfair-display.zip
+
+#### Graphics
+- Running Man Sprite https://w1.pngwing.com/pngs/70/107/png-transparent-walk-cycle-footwear-walking-animation-sprite-human-knee-shoe-finger.png
+- IITD Map https://home.iitd.ac.in/images/iitd-campus-map.jpg
