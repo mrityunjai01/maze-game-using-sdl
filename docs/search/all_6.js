@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['init',['init',['../run__client_8cpp.html#a02fd73d861ef2e4aabb38c0c9ff82947',1,'run_client.cpp']]],
-  ['installation',['Installation',['../md_README.html',1,'']]]
+  ['handle_5fevent',['handle_event',['../events_8cpp.html#add566f31caa738252c45681442dd6a86',1,'events.cpp']]]
 ];

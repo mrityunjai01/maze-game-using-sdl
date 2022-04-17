@@ -90,13 +90,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ad4387a39b397ad344d10c9d3c4588ea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classRunner.html">Runner</a>:: <a class="el" href="classRunner.html">Runner</a> object.  <a href="#ad4387a39b397ad344d10c9d3c4588ea4">More...</a><br /></td></tr>
 <tr class="separator:ad4387a39b397ad344d10c9d3c4588ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95aa3c857796d416b5e2c80fadace8e0"><td class="memItemLeft" align="right" valign="top"><a id="a95aa3c857796d416b5e2c80fadace8e0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>step</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunner.html#a95aa3c857796d416b5e2c80fadace8e0">step</a> ()</td></tr>
+<tr class="memdesc:a95aa3c857796d416b5e2c80fadace8e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make the <a class="el" href="classRunner.html">Runner</a> take one step. <br /></td></tr>
 <tr class="separator:a95aa3c857796d416b5e2c80fadace8e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1887c2c7f3ce0c00d3863cde0bdaa791"><td class="memItemLeft" align="right" valign="top"><a id="a1887c2c7f3ce0c00d3863cde0bdaa791"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setDir</b> (float x, float y)</td></tr>
+<tr class="memitem:a1887c2c7f3ce0c00d3863cde0bdaa791"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunner.html#a1887c2c7f3ce0c00d3863cde0bdaa791">setDir</a> (float x, float y)</td></tr>
+<tr class="memdesc:a1887c2c7f3ce0c00d3863cde0bdaa791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the direction of the runner to the specified coordinates (to_x, to_y)  <a href="#a1887c2c7f3ce0c00d3863cde0bdaa791">More...</a><br /></td></tr>
 <tr class="separator:a1887c2c7f3ce0c00d3863cde0bdaa791"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0024708e21f270f9a9820d7dd764830"><td class="memItemLeft" align="right" valign="top"><a id="aa0024708e21f270f9a9820d7dd764830"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>get_speed</b> ()</td></tr>
+<tr class="memitem:aa0024708e21f270f9a9820d7dd764830"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunner.html#aa0024708e21f270f9a9820d7dd764830">get_speed</a> ()</td></tr>
+<tr class="memdesc:aa0024708e21f270f9a9820d7dd764830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the speed of the runner.  <a href="#aa0024708e21f270f9a9820d7dd764830">More...</a><br /></td></tr>
 <tr class="separator:aa0024708e21f270f9a9820d7dd764830"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f47a45def6d485ca06e99670366aa45"><td class="memItemLeft" align="right" valign="top"><a id="a3f47a45def6d485ca06e99670366aa45"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Runner</b> (<a class="el" href="structVector2f.html">Vector2f</a> pos, float speed)</td></tr>
@@ -141,6 +142,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>sprite</b></td></tr>
 <tr class="memitem:ae42a8e2d371c68a0b909368a83e80892"><td class="memItemLeft" align="right" valign="top"><a id="ae42a8e2d371c68a0b909368a83e80892"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>current_x</b></td></tr>
 <tr class="separator:ae42a8e2d371c68a0b909368a83e80892"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2d7fd7ac2fb1e53778f481ad9136bf1"><td class="memItemLeft" align="right" valign="top"><a id="ac2d7fd7ac2fb1e53778f481ad9136bf1"></a>
+boolean&#160;</td><td class="memItemRight" valign="bottom"><b>diversity</b></td></tr>
+<tr class="separator:ac2d7fd7ac2fb1e53778f481ad9136bf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb23958d93327b062f7673aa6058e918"><td class="memItemLeft" align="right" valign="top"><a id="adb23958d93327b062f7673aa6058e918"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>dir_x</b></td></tr>
 <tr class="separator:adb23958d93327b062f7673aa6058e918"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -238,6 +242,64 @@ SDL_Texture *&#160;</td><td class="memItemRight" valign="bottom"><b>text</b></td
     <tr><td class="paramname">pos</td><td></td></tr>
     <tr><td class="paramname">p_tex</td><td></td></tr>
     <tr><td class="paramname">speed</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa0024708e21f270f9a9820d7dd764830"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0024708e21f270f9a9820d7dd764830">&#9670;&nbsp;</a></span>get_speed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Runner::get_speed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the speed of the runner. </p>
+<dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
+
+</div>
+</div>
+<a id="a1887c2c7f3ce0c00d3863cde0bdaa791"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1887c2c7f3ce0c00d3863cde0bdaa791">&#9670;&nbsp;</a></span>setDir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Runner::setDir </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>to_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>to_y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the direction of the runner to the specified coordinates (to_x, to_y) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">to_x</td><td></td></tr>
+    <tr><td class="paramname">to_y</td><td></td></tr>
   </table>
   </dd>
 </dl>
