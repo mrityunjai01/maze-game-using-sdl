@@ -3,7 +3,7 @@
 
 class Node {
   public:
-    Node (Vector2f);
+    Node (Vector2f pos);
     Vector2f pos;
     void setSelected(bool);
     bool getSelected();

@@ -20,6 +20,7 @@
 #include <random>
 #include "network_structs.h"
 #include "proc.h"
+#include "utils.h"
 #include "runner_for_server.h"
 #include "map_data_for_server.h"
 
@@ -27,7 +28,7 @@ std::vector<Vector2f> dogs;
 std::vector<Vector2f> profs;
 std::vector<Vector2f> yulus;
 std::vector<Vector2f> amuls;
-std::vector<Vector2f> new_spawnpoints;
+std::vector<Vector2f> new_spawnpoints(50);
 /**
  * @brief The main function for running the server.
  *
@@ -46,7 +47,7 @@ int main(int argc, char **argv){
 
 
   for (int i = 0; i < 50; i++) {
-    new_spawnpoints[i] = all_spawnpoints[all_spawnpoints_indices[i]];
+    new_spawnpoints[i] = all_spawnpoints[spawnpoint_indices[i]];
   }
   dogs = {new_spawnpoints.begin(), new_spawnpoints.begin() + 20};
 

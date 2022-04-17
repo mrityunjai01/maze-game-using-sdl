@@ -100,6 +100,9 @@ std::vector<Vector2f> amuls;
 std::vector<Vector2f> new_spawnpoints;
 int all_spawnpoints_indices[50];
 int k = 0;
+
+std::vector<std::unordered_set<int>> adjacency(74);
+
 /**
  * @brief Initializes all the resources by reading them into memory.
  *
@@ -109,10 +112,10 @@ void init() {
   new_spawnpoints.reserve(50);
 
   health = 1.0;
-  adjacency.assign(std::vector<int>());
-  for (ste::pair<int, int> edge: edges) {
-    adjacency[edge.first].push_back(edge.second);
-    adjacency[edge.second].push_back(edge.first);
+  // adjacency.reserve(nodes.size());
+  for (std::pair<int, int> edge: edges) {
+    adjacency[edge.first].insert(edge.second);
+    adjacency[edge.second].insert(edge.first);
   }
 
   // std::mt19937 rng(static_cast<uint32_t>(time(0)));
@@ -123,7 +126,11 @@ void init() {
 
 }
 
-
+bool at_node = true;
+bool at_edge = false;
+int from_node = 0;
+int to_node = 0;
+int curr_node = 0;
 /**
  * @brief The main function for running the client.
  *

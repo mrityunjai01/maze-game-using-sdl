@@ -1,4 +1,5 @@
 #pragma once
+#include <unordered_set>
 #include "proc.h"
 #include "assets.h"
 #include "map_data_extern.h"
@@ -11,5 +12,6 @@ extern std::vector<Vector2f> amuls;
 
 extern float health;
 
-extern int from_node, to_node;
+extern int from_node, to_node, curr_node;
 extern bool at_node, at_edge;
+extern std::vector<std::unordered_set<int>> adjacency;

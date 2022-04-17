@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "node_for_server.h"
+#include "node.h"
 #include "proc.h"
 
 std::vector<Node> nodes = {

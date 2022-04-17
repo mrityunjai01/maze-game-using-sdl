@@ -73,7 +73,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
           }
           else {
 
-            if (std::find (adjacency[curr_node].begin(), adjacency[curr_node].end(), closest_node_to_click ) != adjacency[curr_node].end()) {
+            if (adjacency[curr_node].find (closest_node_to_click) != adjacency[curr_node].end()) {
 
               nodes[prev_node_selected].setSelected(false);
               nodes[closest_node_to_click].setSelected(true);
@@ -81,6 +81,8 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
               r1.setDir(nodes[closest_node_to_click].pos.x, nodes[closest_node_to_click].pos.y);
 
               current_inp = PlayerInput(DirectionChange, closest_node_to_click, ++current_inp_idx, player_index);
+              at_edge = true;
+              at_node = false;
             }
           }
 
@@ -122,8 +124,8 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
             }
             if (squared_dist(nodes[to_node].pos, r1.pos.x, r1.pos.y) < min_target_dist) {
               at_node = true;
-              curr_node = to_node;
               at_edge = false;
+              curr_node = to_node;
             }
             r1.step();
 
