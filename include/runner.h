@@ -20,6 +20,7 @@ class Runner : public Entity {
     float speed_multiplier;
     float get_speed();
     Vector2f pos;
+    Vector2f prev_pos;
     int score;
 
 

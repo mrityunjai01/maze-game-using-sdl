@@ -22,7 +22,7 @@
  * @param p_tex
  * @param speed
  */
-Runner::Runner(Vector2f pos, SDL_Texture* p_tex, float speed): Entity {pos, p_tex}, speed{speed} {
+Runner::Runner(Vector2f pos, SDL_Texture* p_tex, float speed): Entity {pos, p_tex}, prev_pos(pos), speed{speed} {
   current_x = 0;
   speed_multiplier = 1;
   dir_x = 0;
@@ -45,6 +45,7 @@ float Runner::get_speed() {
  *
  */
 void Runner::step() {
+  prev_pos = pos;
   pos.x += (dir_x * get_speed());
   pos.y += (dir_y * get_speed());
   // std::cout << "new pos " << pos.x << ", " << pos.y << '\n';

@@ -46,18 +46,17 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
 
           Mix_PlayChannel(-1, click_sfx, 0);
           int closest_node_to_click = closest_node(nodes, e.button.x, e.button.y);
-          // myfile << e.button.x << "," << e.button.y << '\n';
-          // std::cout << e.button.x << "," << e.button.y << '\n';
+
           if (closest_node_to_click==-1) {
             Mix_PlayChannel(-1, select_one_sfx, 0);
             // std::cout << "select a node please\n";
             break;
           }
 
-          // std::cout << "the closest node " <<closest_node_to_click << " pos "<<nodes[closest_node_to_click].pos.x << ", "<<nodes[closest_node_to_click].pos.y<< '\n';
+
           std::cout <<"selected node: " << closest_node_to_click << "\n";
-          // k++;
-          // if (k%2==0) std::cout << '\n';
+
+
 
           if (at_edge) {
             if (closest_node_to_click == from_node) {
@@ -138,41 +137,63 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
           else if (e.key.keysym.sym == SDLK_SPACE){
             if (chat_started) break;
             if (at_node)  {
+              Mix_PlayChannel(-1, select_adjacent_sfx, 0);
               break;
             }
+            int idx = 0;
             // std::cout << "thats a space\n";
             for (Vector2f& d: dogs) {
               if (squared_dist(d, r1.pos.x, r1.pos.y) < min_dog_dist) {
-                Mix_PlayChannel(-1, dog_sfx, 0);
+                if (last_dog_idx != idx) {
+                  Mix_PlayChannel(-1, dog_sfx, 0);
+                  last_dog_idx = idx;
+                }
+                idx++;
                 // std::cout << "health changes from " << r1.health << " to ";
                 r1.health -= 0.02;
                 r1.health = std::max(r1.health, 0.0f);
-                std::cout << r1.health << "\n";
+                // std::cout << r1.health << "\n";
               }
             }
+            idx = 0;
             for (Vector2f& d: yulus) {
               if (squared_dist(d, r1.pos.x, r1.pos.y) < min_yulu_dist) {
-                Mix_PlayChannel(-1, yulu_sfx, 0);
+                if (last_yulu_idx != idx) {
+                  Mix_PlayChannel(-1, yulu_sfx, 0);
+                  last_yulu_idx = idx;
+                }
+                idx++;
                 r1.speed = std::min(r1.speed + 3, 40.0f);
               }
             }
+            idx = 0;
             for (Vector2f& d: amuls) {
               if (squared_dist(d, r1.pos.x, r1.pos.y) < min_amul_dist) {
-                Mix_PlayChannel(-1, amul_sfx, 0);
+                if (last_amul_idx != idx) {
+                  Mix_PlayChannel(-1, amul_sfx, 0);
+                  last_amul_idx = idx;
+                }
+                idx++;
                 // std::cout << "health changes from " << r1.health << " to ";
                 r1.health += 0.2;
                 r1.health = std::min(r1.health, 1.0f);
-                std::cout << r1.health << "\n";
+                // std::cout << r1.health << "\n";
               }
             }
+            idx = 0;
             for (Vector2f& d: profs) {
               if (squared_dist(d, r1.pos.x, r1.pos.y) < min_prof_dist) {
-                Mix_PlayChannel(-1, prof_sfx, 0);
+                if (last_prof_idx != idx) {
+                  Mix_PlayChannel(-1, prof_sfx, 0);
+                  last_prof_idx = idx;
+                }
+                idx++;
                 r1.speed *= 0.8;
                 r1.speed = std::max(r1.speed, 4.0f);
               }
             }
-            if (squared_dist(nodes[to_node].pos, r1.pos.x, r1.pos.y) < min_target_dist) {
+            Vector2f proxy_pos = randomMid(r1.pos, r1.prev_pos);
+            if (squared_dist(nodes[to_node].pos, proxy_pos.x, proxy_pos.y) < min_target_dist) {
               at_node = true;
               at_edge = false;
               curr_node = to_node;
@@ -182,18 +203,20 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
             if (squared_dist(checkpoint1.pos, r1.pos.x, r1.pos.y) < min_target_dist) {
               Mix_PlayChannel(-1, checkpoint1_sfx, 0);
               r1.score += 100;
+              visited_c1 = true;
               //
               // at_node = true;
               // at_edge = false;
               // curr_node = to_node;
             }
-            if (squared_dist(checkpoint2.pos, r1.pos.x, r1.pos.y) < min_target_dist) {
+            if (squared_dist(checkpoint2.pos, r1.pos.x, r1.pos.y) < min_target_dist && visited_c1) {
               Mix_PlayChannel(-1, checkpoint2_sfx, 0);
               r1.score += 100;
               SDL_Delay(200);
 
-              SDL_Color color = {0,0,0};
-              text = TTF_RenderText_Solid( winning_font, "You've won!", color );
+              // SDL_Color color = {255,255,0};
+              // text = TTF_RenderText_Solid( winning_font, "You've won!", color );
+              //
 
               screen = WinningScreen;
               // at_node = true;

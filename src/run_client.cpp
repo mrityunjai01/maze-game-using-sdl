@@ -35,6 +35,8 @@
 #include "game_meta_constants.h"
 #include "fonts.h"
 
+int last_dog_idx=-1, last_amul_idx=-1, last_prof_idx=-1, last_yulu_idx=-1;
+boolean visited_c1 = false;
 std::string text_in_box_1 = "", text_in_box_2 = "";
 bool chat_started = false, renderText_1 = false, renderText_2 = false;
 
@@ -42,6 +44,8 @@ bool chat_started = false, renderText_1 = false, renderText_2 = false;
  * @brief The theme sound effect.
  *
  */
+
+
 Mix_Chunk* theme_sfx;
 Mix_Chunk* theme_2_sfx;
 Mix_Chunk* select_one_sfx;
@@ -117,6 +121,10 @@ std::vector<Vector2f> amuls;
 std::vector<Vector2f> new_spawnpoints;
 int all_spawnpoints_indices[50];
 int k = 0;
+
+
+
+
 
 std::vector<std::unordered_set<int>> adjacency(74);
 

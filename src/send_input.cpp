@@ -24,7 +24,7 @@ void send_input (){
 }
 void send_chat (GameMeta msg){
   if (player_index==-1) return;
-  std::cout << "sending " <<msg.comm << '\n';
+  // std::cout << "sending " <<msg.comm << '\n';
   ENetPacket* packet = enet_packet_create(&msg, sizeof(msg), ENET_PACKET_FLAG_RELIABLE);
 
   enet_peer_send(peer, 0, packet);
