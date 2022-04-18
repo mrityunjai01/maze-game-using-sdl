@@ -88,7 +88,7 @@ int main(int argc, char **argv){
   int latest_input_idx_0 = -1;
   int latest_input_idx_1 = -1;
   int selected_node_idx;
-  Runner r1(Vector2f(100, 100), 5), r2(Vector2f(300, 300), 5);
+  Runner r1(nodes[0].pos, 5), r2(nodes[0].pos, 5);
 
   float time_step = 20;
   char data[sizeof(GameStatus)];

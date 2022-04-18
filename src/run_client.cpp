@@ -250,8 +250,8 @@ int main(int argc, char **argv){
 
     runner_texture = window.loadTexture("res/gfx/run.png");
     runner_other_texture = window.loadTexture("res/gfx/run_other.png");
-    r1 = Runner(Vector2f(200, 200), runner_texture, 20);
-    r2 = Runner(Vector2f(400, 400), runner_other_texture, 20);
+    r1 = Runner(nodes[0].pos, runner_texture, 20);
+    r2 = Runner(nodes[1].pos, runner_other_texture, 20);
   }
   else {
 
@@ -260,8 +260,8 @@ int main(int argc, char **argv){
     std::string second_file = "res/gfx/" + runner_type2 + ".png";
     runner_texture = window.loadTexture(first_file.c_str());
     runner_other_texture = window.loadTexture(second_file.c_str());
-    r1 = Runner(Vector2f(200, 200), runner_texture, 20);
-    r2 = Runner(Vector2f(400, 400), runner_other_texture, 20);
+    r1 = Runner(nodes[0].pos, runner_texture, 20);
+    r2 = Runner(nodes[1].pos, runner_other_texture, 20);
 
   }
   int windowRefreshRate = window.getRefreshRate();
@@ -324,7 +324,7 @@ int main(int argc, char **argv){
             }
             else if (event.packet -> dataLength == sizeof(GameStatus)) {
               memcpy(&input_status, (const void*) event.packet->data, sizeof (GameStatus));
-              // std::cout  << input_status.x1 << '\n';
+              std::cout  << input_status.x1 << '\n';
               update_gamestate(&input_status);
             }
             else if (event.packet -> dataLength > 32) {
