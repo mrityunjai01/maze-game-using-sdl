@@ -14,4 +14,5 @@ extern float health;
 
 extern int from_node, to_node, curr_node;
 extern bool at_node, at_edge;
+extern bool renderText;
 extern std::vector<std::unordered_set<int>> adjacency;

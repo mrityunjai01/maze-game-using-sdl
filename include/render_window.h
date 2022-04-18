@@ -22,10 +22,14 @@ public:
   void render_edge(float x1, float y1, float x2, float y2);
   void render_theme(int w, int h, SDL_Texture*& p_tex);
   void render_checkpoint(int x, int y, SDL_Texture*& p_tex);
+  void change_rendered_text (char* new_text);
+  void render_text ();
   void set_color (int r, int g, int b, int a);
   void display();
   int getRefreshRate();
 private:
   SDL_Window* window;
   SDL_Renderer* renderer;
+  SDL_Texture* chat_text_texture;
+  SDL_Surface* chat_text_surface;
 };

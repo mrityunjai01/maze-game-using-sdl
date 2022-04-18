@@ -44,9 +44,16 @@ void show_screen() {
       }
       window.render_runner(r1);
       window.render_runner(r2);
-      
+
       window.render_healthbar(r1.health);
       window.render_speedbar(r1.speed);
+      window.render_text();
+      if (renderText) {
+        if (inputText != "") {
+          window.change_rendered_text(input_text.c_str());
+        }
+        renderText = false;
+      }
       break;
     }
     case HelpScreen: {

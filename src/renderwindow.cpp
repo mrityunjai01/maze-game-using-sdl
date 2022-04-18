@@ -224,7 +224,19 @@ void RenderWindow::render_checkpoint(int x, int y, SDL_Texture*& p_tex) {
  * @brief Displays the rendered screen
  *
  */
+void RenderWindow::render_text () {
 
+  SDL_Rect dest = { 1000, 1000, chat_text_surface->w, chat_text_surface->h };
+
+  SDL_RenderCopy( renderer, chat_text_texture, &dest );
+}
+void RenderWindow::change_rendered_text (char* new_text) {
+  SDL_DestroyTexture( chat_text_texture );
+  SDL_FreeSurface( chat_text_surface );
+  SDL_Color = {0, 0, 0);
+  chat_text_surface = TTF_RenderText_Solid(font, new_text, color);
+  chat_text_texture = SDL_CreateTextureFromSurface(renderer, chat_text_surface);
+}
 void RenderWindow::display() {
   SDL_RenderPresent(renderer);
 }
@@ -235,4 +247,6 @@ void RenderWindow::display() {
  */
 void RenderWindow::cleanUp() {
   SDL_DestroyWindow(window);
+  SDL_DestroyTexture( chat_text_texture );
+  SDL_FreeSurface( chat_text_surface );
 }

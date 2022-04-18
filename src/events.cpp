@@ -94,7 +94,31 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
           break;
         }
         case SDL_KEYDOWN: {
-          if (e.key.keysym.sym == SDLK_SPACE){
+          if( e.key.keysym.sym == SDLK_d && SDL_GetModState() & KMOD_CTRL )
+          {
+              std::cout << "so you want to chat\n";
+              if (chat_started) {
+                  SDL_StopTextInput();
+                  inputText = "";
+                  renderText = false;
+              }
+              else {
+                  SDL_StartTextInput();
+              }
+          }
+          if( e.key.keysym.sym == SDLK_s && SDL_GetModState() & KMOD_CTRL )
+          {
+              std::cout << "so you want to send the chat\n";
+
+          }
+          else if( e.type == SDL_TEXTINPUT )
+          {
+              std::cout << "and you've started chatting\n";
+              inputText += e.text.text;
+              renderText = true;
+
+          }
+          else if (e.key.keysym.sym == SDLK_SPACE){
             if (at_node)  {
               break;
             }
