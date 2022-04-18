@@ -47,12 +47,19 @@ void show_screen() {
 
       window.render_healthbar(r1.health);
       window.render_speedbar(r1.speed);
-      window.render_text();
-      if (renderText) {
-        if (inputText != "") {
-          window.change_rendered_text(input_text.c_str());
+      window.render_text_1();
+      window.render_text_2();
+      if (renderText_1) {
+        if (text_in_box_1 != "") {
+          window.change_rendered_text_1(text_in_box_1.c_str());
         }
-        renderText = false;
+        renderText_1 = false;
+      }
+      if (renderText_2) {
+        if (text_in_box_2 != "") {
+          window.change_rendered_text_2(text_in_box_2.c_str());
+        }
+        renderText_2 = false;
       }
       break;
     }

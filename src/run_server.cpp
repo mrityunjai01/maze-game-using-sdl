@@ -89,7 +89,7 @@ int main(int argc, char **argv){
   int latest_input_idx_1 = -1;
   int selected_node_idx_1 = 1, selected_node_idx_2 = 1;
   Runner r1(nodes[0].pos, 5), r2(nodes[0].pos, 5);
-  std::cout << "before the game loop, we check r1 heatlh " << r1.health << '\n';
+  // std::cout << "before the game loop, we check r1 heatlh " << r1.health << '\n';
   float time_step = 20;
   char data[sizeof(GameStatus)];
   while (running) {
@@ -107,6 +107,7 @@ int main(int argc, char **argv){
       // enet_packet_destroy(packet);
       enet_host_service (server, & event, 0);
       PlayerInput player_input;
+      GameMeta player_chat;
       switch (event.type)
       {
         case ENET_EVENT_TYPE_CONNECT: {
@@ -158,7 +159,6 @@ int main(int argc, char **argv){
           break;
         }
         case ENET_EVENT_TYPE_RECEIVE:{
-          // std::cout << "received something\n";
           if (event.packet->dataLength == sizeof (PlayerInput))  {
             // std::cout << "its a player input\n";
             memcpy(&player_input, (const void*) event.packet->data, sizeof (PlayerInput));
@@ -276,67 +276,29 @@ int main(int argc, char **argv){
 
             }
           }
-          // else if (player_input.keypressed == SpaceKey) {
-          //   std::cout << "spacekey\n";
-            // for (Vector2f& d: dogs) {
-            //   if (squared_dist(d, r1.pos.x, r1.pos.y) < min_dog_dist) {
-            //     Mix_PlayChannel(-1, dog_sfx, 0);
-            //     health -= 0.02;
-            //     health = std::max(health, 0.0f);
-            //   }
-            // }
-            // for (Vector2f& d: yulus) {
-            //   if (squared_dist(d, r1.pos.x, r1.pos.y) < min_yulu_dist) {
-            //     Mix_PlayChannel(-1, yulu_sfx, 0);
-            //     r1.speed = std::min(r1.speed + 1, 6.0f);
-            //   }
-            // }
-            // for (Vector2f& d: amuls) {
-            //   if (squared_dist(d, r1.pos.x, r1.pos.y) < min_amul_dist) {
-            //     Mix_PlayChannel(-1, amul_sfx, 0);
-            //     health += 0.2;
-            //     health = std::min(health, 1.0f);
-            //   }
-            // }
-            // for (Vector2f& d: profs) {
-            //   if (squared_dist(d, r1.pos.x, r1.pos.y) < min_prof_dist) {
-            //     Mix_PlayChannel(-1, prof_sfx, 0);
-            //     r1.speed *= 0.8;
-            //     r1.speed = std::max(r1.speed, 2.0f);
-            //   }
-            // }
-            // r1.step();
+          else {
+            std::cout << "received something of length " << event.packet->dataLength << " eq neq "<< sizeof (GameMeta) << '\n';
+          }
+          if (event.packet->dataLength == sizeof (GameMeta)) {
+            std::cout << "someone sent a chat\n";
+            memcpy(&player_chat, (const void*) event.packet->data, sizeof (GameMeta));
+            std::cout << player_chat.comm << '\n';
+            GameMeta msg(0, 0, (const char*)player_chat.comm, 1 - player_chat.player_index);
+            ENetPacket* packet = enet_packet_create(&msg, sizeof(msg), ENET_PACKET_FLAG_RELIABLE);
+            std::cout << "sending " << msg.comm << '\n';
+            if (player_chat.player_index==1 && client1 != NULL) {
+              enet_peer_send(client1, 0, packet);
+              std::cout << "sent to client1\n";
+            }
+            else if (client2 != NULL) {
+              enet_peer_send(client2, 0, packet);
+              std::cout << "sent to client1\n";
 
-          // }
-          // else {
-          //   std::cout << "dir change\n";
-            // int closest_node_to_click = closest_node(nodes, e.button.x, e.button.y);
-            // // myfile << e.button.x << "," << e.button.y << '\n';
-            // std::cout << e.button.x << "," << e.button.y << '\n';
-            // if (closest_node_to_click==-1) {
-            //   Mix_PlayChannel(-1, select_one_sfx, 0);
-            //   // std::cout << "select a node please\n";
-            //   break;
-            // }
-            //
-            // // std::cout << "the closest node " <<closest_node_to_click << " pos "<<nodes[closest_node_to_click].pos.x << ", "<<nodes[closest_node_to_click].pos.y<< '\n';
-            // nodes[prev_node_selected].setSelected(false);
-            // nodes[closest_node_to_click].setSelected(true);
-            // prev_node_selected = closest_node_to_click;
-            // r1.setDir(nodes[closest_node_to_click].pos.x, nodes[closest_node_to_click].pos.y);
-            //
-            // current_inp = PlayerInput(DirectionChange, closest_node_to_click, current_inp_idx++);
+            }
 
           }
-          // printf ("A packet of length %u was received from %s on channel %u.\n",
-          // event.packet -> dataLength,
-          // event.peer -> data,
-          // event.channelID);
-          /* Clean up the packet now that we're done using it. */
-          // enet_packet_destroy (event.packet);
-          // break;
-        // }
 
+          }
 
         case ENET_EVENT_TYPE_DISCONNECT: {
 

@@ -33,7 +33,7 @@ Runner::Runner(Vector2f pos, float speed): pos(pos), speed(speed) {
   speed_multiplier = 1;
   dir_x = 0;
   dir_y = 1;
-  std::cout << "initialized runner to " << health << "\n";
+  // std::cout << "initialized runner to " << health << "\n";
 
 }
 

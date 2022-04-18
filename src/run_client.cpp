@@ -33,6 +33,10 @@
 #include "network_structs.h"
 #include "update_gamestate.h"
 #include "game_meta_constants.h"
+#include "fonts.h"
+
+std::string text_in_box_1 = "", text_in_box_2 = "";
+bool chat_started = false, renderText_1 = false, renderText_2 = false;
 
 /**
  * @brief The theme sound effect.
@@ -234,6 +238,7 @@ int main(int argc, char **argv){
   checkpoint2_sfx = Mix_LoadWAV("res/sounds/youve won.mp3");
 
   window = RenderWindow("IITD Maze", SCREEN_W, SCREEN_H);
+  window.initialize_text();
   theme_background_texture = window.loadTexture("res/gfx/background.png");
   iitd_map_texture = window.loadTexture("res/gfx/iitd_map.png");
   help_texture = window.loadTexture("res/gfx/help_screen.png");
@@ -292,7 +297,7 @@ int main(int argc, char **argv){
   myfile.open ("map.csv");
 
   bool connected = true;
-
+  GameMeta player_chat;
   GameStatus input_status(0,0,0,0,0,0,0,0);
   while (connected && running) {
     int startTicks = SDL_GetTicks();
@@ -311,7 +316,7 @@ int main(int argc, char **argv){
         switch (event.type) {
 
           case ENET_EVENT_TYPE_RECEIVE:{
-            // std::cout << "packet of length " << event.packet -> dataLength << " received\n";
+            // if (event.packet -> dataLength != sizeof(GameStatus)) std::cout << "packet of length " << event.packet -> dataLength << " == " << sizeof (GameMeta) << "received\n";
             if (event.packet -> dataLength == 8) {
                 char* r1_or_r2 = (char*) event.packet -> data;
                 printf("%s\n", r1_or_r2);
@@ -322,12 +327,18 @@ int main(int argc, char **argv){
                   player_index = 1;
                 }
             }
+            else if (event.packet->dataLength == sizeof (GameMeta)) {
+              // std::cout << "i received a chat";
+              memcpy(&player_chat, (const void*) event.packet->data, sizeof (GameMeta));
+              window.change_rendered_text_2(player_chat.comm);
+              renderText_2 = true;
+            }
             else if (event.packet -> dataLength == sizeof(GameStatus)) {
               memcpy(&input_status, (const void*) event.packet->data, sizeof (GameStatus));
               // std::cout  << input_status.x1 << '\n';
               update_gamestate(&input_status);
             }
-            else if (event.packet -> dataLength > 32) {
+            else if (event.packet -> dataLength > 56) {
               std::cout << "received spawnpoints\n";
               memcpy(&all_spawnpoints_indices, (const void*) event.packet->data, sizeof (all_spawnpoints_indices));
 

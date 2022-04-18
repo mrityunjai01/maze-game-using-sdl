@@ -19,6 +19,7 @@
 // #include "screens.h"
 #include "node.h"
 
+
 /**
  * @brief Construct a new Render Window:: Render Window object
  *
@@ -32,6 +33,10 @@ RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h) : window(NULL)
     std::cout << "Whoops! cant make the window!\n" << SDL_GetError() << '\n';
   }
   renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED && SDL_RENDERER_PRESENTVSYNC);
+  w1 = 0;
+  h1 = 0;
+  w2 = 0;
+  h2 = 0;
 };
 
 /**
@@ -224,19 +229,50 @@ void RenderWindow::render_checkpoint(int x, int y, SDL_Texture*& p_tex) {
  * @brief Displays the rendered screen
  *
  */
-void RenderWindow::render_text () {
+void RenderWindow::render_text_1 () {
 
-  SDL_Rect dest = { 1000, 1000, chat_text_surface->w, chat_text_surface->h };
 
-  SDL_RenderCopy( renderer, chat_text_texture, &dest );
+  SDL_Rect r = { 0, 0, w1, h1};
+  SDL_Rect d1 = { 300, 900, w1, h1};
+
+  SDL_RenderCopy( renderer, chat_text_texture_1, &r, &d1 );
 }
-void RenderWindow::change_rendered_text (char* new_text) {
-  SDL_DestroyTexture( chat_text_texture );
-  SDL_FreeSurface( chat_text_surface );
-  SDL_Color = {0, 0, 0);
-  chat_text_surface = TTF_RenderText_Solid(font, new_text, color);
-  chat_text_texture = SDL_CreateTextureFromSurface(renderer, chat_text_surface);
+void RenderWindow::render_text_2 () {
+
+  SDL_Rect r = { 0, 0, w2, h2};
+  SDL_Rect d2 = { 500, 900, w2, h2};
+  SDL_RenderCopy( renderer, chat_text_texture_2, &r, &d2 );
 }
+
+void RenderWindow::initialize_text () {
+
+  SDL_Color color = {0, 0, 0};
+  TTF_SizeText(winning_font, " ", &w1, &h1);
+  chat_text_surface_1 = TTF_RenderText_Blended_Wrapped(winning_font, "Out Chat", color, 20);
+  chat_text_texture_1 = SDL_CreateTextureFromSurface(renderer, chat_text_surface_1);
+  TTF_SizeText(winning_font, " ", &w2, &h2);
+  chat_text_surface_2 = TTF_RenderText_Blended_Wrapped(winning_font, "In Chat", color, 20);
+  chat_text_texture_2 = SDL_CreateTextureFromSurface(renderer, chat_text_surface_2);
+}
+void RenderWindow::change_rendered_text_1 (const char* new_text) {
+  SDL_FreeSurface( chat_text_surface_1 );
+  SDL_DestroyTexture( chat_text_texture_1 );
+  TTF_SizeText(winning_font, new_text, &w1, &h1);
+  SDL_Color color = {0, 0, 0};
+
+  chat_text_surface_1 = TTF_RenderText_Blended_Wrapped(winning_font, new_text, color, 20);
+  chat_text_texture_1 = SDL_CreateTextureFromSurface(renderer, chat_text_surface_1);
+}
+void RenderWindow::change_rendered_text_2 (const char* new_text) {
+  SDL_FreeSurface( chat_text_surface_2 );
+  SDL_DestroyTexture( chat_text_texture_2 );
+  TTF_SizeText(winning_font, new_text, &w2, &h2);
+  SDL_Color color = {0, 0, 0};
+
+  chat_text_surface_2 = TTF_RenderText_Blended_Wrapped(winning_font, new_text, color, 20);
+  chat_text_texture_2 = SDL_CreateTextureFromSurface(renderer, chat_text_surface_2);
+}
+
 void RenderWindow::display() {
   SDL_RenderPresent(renderer);
 }
@@ -247,6 +283,8 @@ void RenderWindow::display() {
  */
 void RenderWindow::cleanUp() {
   SDL_DestroyWindow(window);
-  SDL_DestroyTexture( chat_text_texture );
-  SDL_FreeSurface( chat_text_surface );
+  SDL_FreeSurface( chat_text_surface_1 );
+  SDL_DestroyTexture( chat_text_texture_1 );
+  SDL_FreeSurface( chat_text_surface_2 );
+  SDL_DestroyTexture( chat_text_texture_2 );
 }

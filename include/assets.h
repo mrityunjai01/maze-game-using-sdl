@@ -2,8 +2,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
-#include <SDL2/SDL_ttf.h>
-#include "render_window.h"
+
 #include "render_window.h"
 
 extern RenderWindow window;
@@ -33,6 +32,6 @@ extern SDL_Texture* checkpoint_texture;
 extern SDL_Texture* text_texture;
 extern SDL_Surface* text;
 
-extern TTF_Font* winning_font;
+
 
 extern bool theme_played, theme_2_played;

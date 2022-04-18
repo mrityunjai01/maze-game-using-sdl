@@ -12,6 +12,7 @@
 #include "game_objects.h"
 #include "map_data_extern.h"
 #include "constants.h"
+#include "fonts.h"
 
 
 extern ENetPeer* peer;

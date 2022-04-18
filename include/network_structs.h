@@ -27,7 +27,11 @@ struct GameStatus {
 };
 struct GameMeta {
   GameMeta(){};
+  GameMeta(char lost, char won, const char* text, int pl_ind): lost(lost), won(won), player_index(pl_ind){
+    strcpy(comm, text);
+  };
   char lost;
   char won;
   char comm[50];
+  int player_index;
 };

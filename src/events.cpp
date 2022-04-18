@@ -93,32 +93,46 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
           // std::cout << r1.pos.x << ", " << r1.pos.y << '\n';
           break;
         }
+
+        case SDL_TEXTINPUT:
+        {
+            if (chat_started){
+              // std::cout << "and you've started chatting\n";
+              text_in_box_1 += e.text.text;
+              renderText_1 = true;
+              break;
+            }
+            else {
+
+            }
+        }
         case SDL_KEYDOWN: {
           if( e.key.keysym.sym == SDLK_d && SDL_GetModState() & KMOD_CTRL )
           {
-              std::cout << "so you want to chat\n";
+              // std::cout << "so you want to chat\n";
               if (chat_started) {
                   SDL_StopTextInput();
-                  inputText = "";
-                  renderText = false;
+                  chat_started = false;
+                  text_in_box_1 = "";
+                  renderText_1 = false;
               }
               else {
+                  chat_started = true;
                   SDL_StartTextInput();
               }
+              break;
           }
-          if( e.key.keysym.sym == SDLK_s && SDL_GetModState() & KMOD_CTRL )
+          else if( e.key.keysym.sym == SDLK_s && SDL_GetModState() & KMOD_CTRL )
           {
-              std::cout << "so you want to send the chat\n";
-
-          }
-          else if( e.type == SDL_TEXTINPUT )
-          {
-              std::cout << "and you've started chatting\n";
-              inputText += e.text.text;
-              renderText = true;
+              // std::cout << "so you want to send the chat\n" << text_in_box_1 << '\n';
+              send_chat(GameMeta(0, 0, strdup (text_in_box_1.c_str()), player_index));
+              text_in_box_1 = "";
+              renderText_1 = true;
+              break;
 
           }
           else if (e.key.keysym.sym == SDLK_SPACE){
+            if (chat_started) break;
             if (at_node)  {
               break;
             }
@@ -126,7 +140,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
             for (Vector2f& d: dogs) {
               if (squared_dist(d, r1.pos.x, r1.pos.y) < min_dog_dist) {
                 Mix_PlayChannel(-1, dog_sfx, 0);
-                std::cout << "health changes from " << r1.health << " to ";
+                // std::cout << "health changes from " << r1.health << " to ";
                 r1.health -= 0.02;
                 r1.health = std::max(r1.health, 0.0f);
                 std::cout << r1.health << "\n";
@@ -141,7 +155,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
             for (Vector2f& d: amuls) {
               if (squared_dist(d, r1.pos.x, r1.pos.y) < min_amul_dist) {
                 Mix_PlayChannel(-1, amul_sfx, 0);
-                std::cout << "health changes from " << r1.health << " to ";
+                // std::cout << "health changes from " << r1.health << " to ";
                 r1.health += 0.2;
                 r1.health = std::min(r1.health, 1.0f);
                 std::cout << r1.health << "\n";
@@ -185,7 +199,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
 
             current_inp = PlayerInput(SpaceKey, -1, ++current_inp_idx, player_index);
 
-            std::cout << r1.pos.x << ", " << r1.pos.y << '\n';
+            // std::cout << r1.pos.x << ", " << r1.pos.y << '\n';
           }
           else if (e.key.keysym.sym ==SDLK_F1) {
             screen = HelpScreen;
