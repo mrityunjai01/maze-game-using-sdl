@@ -52,6 +52,10 @@ Mix_Chunk* yulu_sfx;
 Mix_Chunk* amul_sfx;
 Mix_Chunk* checkpoint1_sfx;
 Mix_Chunk* checkpoint2_sfx;
+Mix_Chunk* select_adjacent_sfx;
+Mix_Chunk* send_msg_sfx;
+Mix_Chunk* recv_msg_sfx;
+
 SDL_Texture* theme_background_texture;
 SDL_Texture* iitd_map_texture;
 SDL_Texture* help_texture;
@@ -236,6 +240,9 @@ int main(int argc, char **argv){
   yulu_sfx = Mix_LoadWAV("res/sounds/yulu.mpeg");
   checkpoint1_sfx = Mix_LoadWAV("res/sounds/checkpoint 1.mp3");
   checkpoint2_sfx = Mix_LoadWAV("res/sounds/youve won.mp3");
+  select_adjacent_sfx = Mix_LoadWAV("res/sounds/select_adjacent.mp3");
+  send_msg_sfx = Mix_LoadWAV("res/sounds/send.mp3");
+  recv_msg_sfx = Mix_LoadWAV("res/sounds/receive.mp3");
 
   window = RenderWindow("IITD Maze", SCREEN_W, SCREEN_H);
   window.initialize_text();
@@ -329,6 +336,7 @@ int main(int argc, char **argv){
             }
             else if (event.packet->dataLength == sizeof (GameMeta)) {
               // std::cout << "i received a chat";
+              Mix_PlayChannel(-1, recv_msg_sfx, 0);
               memcpy(&player_chat, (const void*) event.packet->data, sizeof (GameMeta));
               window.change_rendered_text_2(player_chat.comm);
               renderText_2 = true;

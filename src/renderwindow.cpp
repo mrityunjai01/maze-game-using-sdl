@@ -233,14 +233,14 @@ void RenderWindow::render_text_1 () {
 
 
   SDL_Rect r = { 0, 0, w1, h1};
-  SDL_Rect d1 = { 300, 900, w1, h1};
+  SDL_Rect d1 = { 700, 870, w1, h1};
 
   SDL_RenderCopy( renderer, chat_text_texture_1, &r, &d1 );
 }
 void RenderWindow::render_text_2 () {
 
   SDL_Rect r = { 0, 0, w2, h2};
-  SDL_Rect d2 = { 500, 900, w2, h2};
+  SDL_Rect d2 = { 1200, 870, w2, h2};
   SDL_RenderCopy( renderer, chat_text_texture_2, &r, &d2 );
 }
 

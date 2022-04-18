@@ -23,6 +23,11 @@ make clean && make run_client && make run_server
 ```
 ./run_client.out
 ```
+### Game Rules
+For help, press F1.
+To type in the chatbox, press ctrl + D.
+To send your message in chatbox, press ctrl + S.
+The objective is to traverse through a group of checkpoints. The player who reaches the last checkpoint first, wins. There’s a scoring system to challenge you.
 
 # Documentation
 ### Incode Documentation
@@ -61,10 +66,13 @@ We've hosted the reference documentation at [Documentation](https://mrityunjai01
 https://voicemaker.in/
 
 #### Sound Effects
-all dota2
+dota2
 - https://dota2.fandom.com/wiki/Sniper
 - https://dota2.fandom.com/wiki/Viper
 
+message
+- https://www.fesliyanstudios.com/royalty-free-sound-effects-download/whoosh-and-swoosh-73
+- https://www.fesliyanstudios.com/policy
 #### Theme songs
 - https://www.marxists.org/history/ussr/sounds/index.htm
 - The rick roll song https://www.youtube.com/watch?v=dQw4w9WgXcQ

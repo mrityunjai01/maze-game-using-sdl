@@ -88,6 +88,9 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
               at_node = false;
               to_node = closest_node_to_click;
             }
+            else {
+              Mix_PlayChannel(-1, select_adjacent_sfx, 0);
+            }
           }
 
           // std::cout << r1.pos.x << ", " << r1.pos.y << '\n';
@@ -125,6 +128,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
           else if( e.key.keysym.sym == SDLK_s && SDL_GetModState() & KMOD_CTRL )
           {
               // std::cout << "so you want to send the chat\n" << text_in_box_1 << '\n';
+              Mix_PlayChannel(-1, send_msg_sfx, 0);
               send_chat(GameMeta(0, 0, strdup (text_in_box_1.c_str()), player_index));
               text_in_box_1 = "";
               renderText_1 = true;

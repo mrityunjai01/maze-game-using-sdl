@@ -183,17 +183,17 @@ int main(int argc, char **argv){
               assert(false);
             }
 
-            std::cout << "received input from  "<< player_input.player_index<< ", with index "<< player_input.input_idx << '\n';
+            // std::cout << "received input from  "<< player_input.player_index<< ", with index "<< player_input.input_idx << '\n';
 
 
             switch(player_input.keypressed) {
               case SpaceKey: {
-                std::cout << "the input is a space\n";
+                // std::cout << "the input is a space\n";
                 if (player_input.player_index == 0) {
                   for (Vector2f& d: dogs) {
                     if (squared_dist(d, r1.pos.x, r1.pos.y) < min_dog_dist) {
                       r1.health -= 0.01;
-                      std::cout << "r1s health becomes, " << r1.health << '\n';
+                      // std::cout << "r1s health becomes, " << r1.health << '\n';
                       r1.health = std::max(r1.health, 0.0f);
                     }
                   }
@@ -257,7 +257,7 @@ int main(int argc, char **argv){
                 break;
               }
               case DirectionChange: {
-                std::cout << "the input is a dir change\n";
+                // std::cout << "the input is a dir change\n";
 
                 if (player_input.player_index == 0) {
                   selected_node_idx_1 = player_input.new_node_to_point;
@@ -276,23 +276,20 @@ int main(int argc, char **argv){
 
             }
           }
-          else {
-            std::cout << "received something of length " << event.packet->dataLength << " eq neq "<< sizeof (GameMeta) << '\n';
-          }
           if (event.packet->dataLength == sizeof (GameMeta)) {
-            std::cout << "someone sent a chat\n";
+            // std::cout << "someone sent a chat\n";
             memcpy(&player_chat, (const void*) event.packet->data, sizeof (GameMeta));
-            std::cout << player_chat.comm << '\n';
+            // std::cout << player_chat.comm << '\n';
             GameMeta msg(0, 0, (const char*)player_chat.comm, 1 - player_chat.player_index);
             ENetPacket* packet = enet_packet_create(&msg, sizeof(msg), ENET_PACKET_FLAG_RELIABLE);
-            std::cout << "sending " << msg.comm << '\n';
+            // std::cout << "sending " << msg.comm << '\n';
             if (player_chat.player_index==1 && client1 != NULL) {
               enet_peer_send(client1, 0, packet);
-              std::cout << "sent to client1\n";
+              // std::cout << "sent to client1\n";
             }
             else if (client2 != NULL) {
               enet_peer_send(client2, 0, packet);
-              std::cout << "sent to client1\n";
+              // std::cout << "sent to client1\n";
 
             }
 
