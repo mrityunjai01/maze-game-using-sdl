@@ -38,4 +38,5 @@ void update_gamestate(GameStatus* status) {
     r2.health = status->h1;
 
   }
+  
 }

@@ -324,7 +324,7 @@ int main(int argc, char **argv){
             }
             else if (event.packet -> dataLength == sizeof(GameStatus)) {
               memcpy(&input_status, (const void*) event.packet->data, sizeof (GameStatus));
-              std::cout  << input_status.x1 << '\n';
+              // std::cout  << input_status.x1 << '\n';
               update_gamestate(&input_status);
             }
             else if (event.packet -> dataLength > 32) {

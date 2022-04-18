@@ -21,7 +21,7 @@
  */
 Runner::Runner(Vector2f pos): pos(pos) {
   current_x = 0;
-  float health = 1;
+  health = 1;
   speed_multiplier = 1;
   dir_x = 0;
   dir_y = 1;
@@ -29,10 +29,11 @@ Runner::Runner(Vector2f pos): pos(pos) {
 }
 Runner::Runner(Vector2f pos, float speed): pos(pos), speed(speed) {
   current_x = 0;
-  float health = 1;
+  health = 1;
   speed_multiplier = 1;
   dir_x = 0;
   dir_y = 1;
+  std::cout << "initialized runner to " << health << "\n";
 
 }
 
@@ -42,7 +43,7 @@ float Runner::get_speed() {
 void Runner::step() {
   pos.x += (dir_x * get_speed());
   pos.y += (dir_y * get_speed());
-  std::cout << "new pos " << pos.x << ", " << pos.y << '\n';
+  // std::cout << "new pos " << pos.x << ", " << pos.y << '\n';
   current_x = (current_x + 75) % 600;
 
 }

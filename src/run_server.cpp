@@ -87,9 +87,9 @@ int main(int argc, char **argv){
 
   int latest_input_idx_0 = -1;
   int latest_input_idx_1 = -1;
-  int selected_node_idx;
+  int selected_node_idx_1 = 1, selected_node_idx_2 = 1;
   Runner r1(nodes[0].pos, 5), r2(nodes[0].pos, 5);
-
+  std::cout << "before the game loop, we check r1 heatlh " << r1.health << '\n';
   float time_step = 20;
   char data[sizeof(GameStatus)];
   while (running) {
@@ -192,7 +192,8 @@ int main(int argc, char **argv){
                 if (player_input.player_index == 0) {
                   for (Vector2f& d: dogs) {
                     if (squared_dist(d, r1.pos.x, r1.pos.y) < min_dog_dist) {
-                      r1.health -= 0.02;
+                      r1.health -= 0.01;
+                      std::cout << "r1s health becomes, " << r1.health << '\n';
                       r1.health = std::max(r1.health, 0.0f);
                     }
                   }
@@ -213,6 +214,7 @@ int main(int argc, char **argv){
                       r1.speed = std::max(r1.speed, 4.0f);
                     }
                   }
+                  r1.setDir(nodes[selected_node_idx_1].pos.x, nodes[selected_node_idx_1].pos.y);
                   r1.step();
 
                   current_status.x1 = r1.pos.x;
@@ -245,6 +247,7 @@ int main(int argc, char **argv){
                       r1.speed = std::max(r1.speed, 4.0f);
                     }
                   }
+                  r2.setDir(nodes[selected_node_idx_2].pos.x, nodes[selected_node_idx_2].pos.y);
                   r2.step();
                   current_status.x2 = r2.pos.x;
                   current_status.y2 = r2.pos.y;
@@ -255,12 +258,14 @@ int main(int argc, char **argv){
               }
               case DirectionChange: {
                 std::cout << "the input is a dir change\n";
-                selected_node_idx = player_input.new_node_to_point;
+
                 if (player_input.player_index == 0) {
-                  r1.setDir(nodes[selected_node_idx].pos.x, nodes[selected_node_idx].pos.y);
+                  selected_node_idx_1 = player_input.new_node_to_point;
+                  r1.setDir(nodes[selected_node_idx_1].pos.x, nodes[selected_node_idx_1].pos.y);
                 }
                 else {
-                  r2.setDir(nodes[selected_node_idx].pos.x, nodes[selected_node_idx].pos.y);
+                  selected_node_idx_2 = player_input.new_node_to_point;
+                  r2.setDir(nodes[selected_node_idx_2].pos.x, nodes[selected_node_idx_2].pos.y);
 
                 }
                 break;

@@ -55,7 +55,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
           }
 
           // std::cout << "the closest node " <<closest_node_to_click << " pos "<<nodes[closest_node_to_click].pos.x << ", "<<nodes[closest_node_to_click].pos.y<< '\n';
-          // std::cout << closest_node_to_click << " ";
+          std::cout <<"selected node: " << closest_node_to_click << "\n";
           // k++;
           // if (k%2==0) std::cout << '\n';
 
@@ -68,6 +68,9 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
               r1.setDir(nodes[closest_node_to_click].pos.x, nodes[closest_node_to_click].pos.y);
 
               current_inp = PlayerInput(DirectionChange, closest_node_to_click, ++current_inp_idx, player_index);
+            }
+            else {
+              std::cout << "youre at an edge and you cant go off it. you have to go from " << from_node << " to " << to_node << '\n';
             }
             break;
           }
@@ -83,6 +86,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
               current_inp = PlayerInput(DirectionChange, closest_node_to_click, ++current_inp_idx, player_index);
               at_edge = true;
               at_node = false;
+              to_node = closest_node_to_click;
             }
           }
 
@@ -98,8 +102,10 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
             for (Vector2f& d: dogs) {
               if (squared_dist(d, r1.pos.x, r1.pos.y) < min_dog_dist) {
                 Mix_PlayChannel(-1, dog_sfx, 0);
+                std::cout << "health changes from " << r1.health << " to ";
                 r1.health -= 0.02;
                 r1.health = std::max(r1.health, 0.0f);
+                std::cout << r1.health << "\n";
               }
             }
             for (Vector2f& d: yulus) {
@@ -111,8 +117,10 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
             for (Vector2f& d: amuls) {
               if (squared_dist(d, r1.pos.x, r1.pos.y) < min_amul_dist) {
                 Mix_PlayChannel(-1, amul_sfx, 0);
+                std::cout << "health changes from " << r1.health << " to ";
                 r1.health += 0.2;
                 r1.health = std::min(r1.health, 1.0f);
+                std::cout << r1.health << "\n";
               }
             }
             for (Vector2f& d: profs) {
@@ -126,15 +134,16 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
               at_node = true;
               at_edge = false;
               curr_node = to_node;
+              std::cout << "Ive reached a ndoe\n";
             }
             r1.step();
             if (squared_dist(checkpoint1.pos, r1.pos.x, r1.pos.y) < min_target_dist) {
               Mix_PlayChannel(-1, checkpoint1_sfx, 0);
               r1.score += 100;
-
-              at_node = true;
-              at_edge = false;
-              curr_node = to_node;
+              //
+              // at_node = true;
+              // at_edge = false;
+              // curr_node = to_node;
             }
             if (squared_dist(checkpoint2.pos, r1.pos.x, r1.pos.y) < min_target_dist) {
               Mix_PlayChannel(-1, checkpoint2_sfx, 0);
@@ -145,9 +154,9 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
               text = TTF_RenderText_Solid( winning_font, "You've won!", color );
 
               screen = WinningScreen;
-              at_node = true;
-              at_edge = false;
-              curr_node = to_node;
+              // at_node = true;
+              // at_edge = false;
+              // curr_node = to_node;
             }
 
             current_inp = PlayerInput(SpaceKey, -1, ++current_inp_idx, player_index);

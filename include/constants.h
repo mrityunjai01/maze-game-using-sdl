@@ -6,5 +6,5 @@ const int min_dog_dist = 2000;
 const int min_prof_dist = 2000;
 const int min_amul_dist = 2000;
 const int min_yulu_dist = 2000;
-const int min_target_dist = 500;
+const int min_target_dist = 10;
 extern int player_index;

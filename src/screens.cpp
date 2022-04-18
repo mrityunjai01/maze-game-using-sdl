@@ -44,6 +44,7 @@ void show_screen() {
       }
       window.render_runner(r1);
       window.render_runner(r2);
+      
       window.render_healthbar(r1.health);
       window.render_speedbar(r1.speed);
       break;

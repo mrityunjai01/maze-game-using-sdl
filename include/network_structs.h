@@ -25,3 +25,9 @@ struct GameStatus {
   float h2;
   float x2, y2;
 };
+struct GameMeta {
+  GameMeta(){};
+  char lost;
+  char won;
+  char comm[50];
+};
