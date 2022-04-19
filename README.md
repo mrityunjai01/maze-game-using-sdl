@@ -4,7 +4,7 @@
 sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
 
 ```
-
+you also have to install enet.
 # How to run
 you can alternatively do
 ```
