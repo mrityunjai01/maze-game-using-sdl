@@ -19,6 +19,7 @@ extern Mix_Chunk* checkpoint2_sfx;
 extern Mix_Chunk* send_msg_sfx;
 extern Mix_Chunk* recv_msg_sfx;
 extern Mix_Chunk* select_adjacent_sfx;
+extern Mix_Chunk* you_lost_sfx;
 extern SDL_Texture* theme_background_texture;
 extern SDL_Texture* iitd_map_texture;
 extern SDL_Texture* help_texture;

@@ -49,6 +49,7 @@ void show_screen() {
       window.render_speedbar(r1.speed);
       window.render_text_1();
       window.render_text_2();
+      window.render_score();
       if (renderText_1) {
         if (text_in_box_1 != "") {
           window.change_rendered_text_1(text_in_box_1.c_str());
@@ -69,6 +70,7 @@ void show_screen() {
     }
     case WinningScreen: {
       window.render_theme(1000, 600, win_texture);
+      window.render_score();
     }
   }
 }

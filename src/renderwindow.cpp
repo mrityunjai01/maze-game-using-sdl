@@ -237,6 +237,8 @@ void RenderWindow::render_text_1 () {
 
   SDL_RenderCopy( renderer, chat_text_texture_1, &r, &d1 );
 }
+
+
 void RenderWindow::render_text_2 () {
 
   SDL_Rect r = { 0, 0, w2, h2};
@@ -244,14 +246,38 @@ void RenderWindow::render_text_2 () {
   SDL_RenderCopy( renderer, chat_text_texture_2, &r, &d2 );
 }
 
+void RenderWindow::change_rendered_score (int new_score){
+  SDL_FreeSurface (score_surf);
+  SDL_DestroyTexture(score_texture);
+  std::string s = std::string("Score: ") + std::to_string(new_score);
+  TTF_SizeText(winning_font, s.c_str(), &w_s, &h_s);
+  SDL_Color color = {255, 0, 0};
+
+  score_surf = TTF_RenderText_Blended_Wrapped(winning_font, s.c_str(), color, 20);
+  score_texture = SDL_CreateTextureFromSurface(renderer, score_surf);
+}
+void RenderWindow::render_score (){
+
+  SDL_Rect r = { 0, 0, w_s, h_s};
+  SDL_Rect d1 = { 700, 770, w_s, h_s};
+
+  SDL_RenderCopy( renderer, score_texture, &r, &d1 );
+}
+void RenderWindow::init_score() {
+  SDL_Color color = {255, 0, 0};
+  TTF_SizeText(winning_font, "Score: 100", &w_s, &h_s);
+  score_surf = TTF_RenderText_Blended_Wrapped(winning_font, "Score: 100", color, 20);
+  score_texture = SDL_CreateTextureFromSurface(renderer, chat_text_surface_1);
+
+}
 void RenderWindow::initialize_text () {
 
   SDL_Color color = {0, 0, 0};
   TTF_SizeText(winning_font, " ", &w1, &h1);
-  chat_text_surface_1 = TTF_RenderText_Blended_Wrapped(winning_font, "Out Chat", color, 20);
+  chat_text_surface_1 = TTF_RenderText_Blended_Wrapped(winning_font, " ", color, 20);
   chat_text_texture_1 = SDL_CreateTextureFromSurface(renderer, chat_text_surface_1);
   TTF_SizeText(winning_font, " ", &w2, &h2);
-  chat_text_surface_2 = TTF_RenderText_Blended_Wrapped(winning_font, "In Chat", color, 20);
+  chat_text_surface_2 = TTF_RenderText_Blended_Wrapped(winning_font, " ", color, 20);
   chat_text_texture_2 = SDL_CreateTextureFromSurface(renderer, chat_text_surface_2);
 }
 void RenderWindow::change_rendered_text_1 (const char* new_text) {

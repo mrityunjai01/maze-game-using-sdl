@@ -36,7 +36,7 @@
 #include "fonts.h"
 
 int last_dog_idx=-1, last_amul_idx=-1, last_prof_idx=-1, last_yulu_idx=-1;
-boolean visited_c1 = false;
+bool visited_c1 = false;
 std::string text_in_box_1 = "", text_in_box_2 = "";
 bool chat_started = false, renderText_1 = false, renderText_2 = false;
 
@@ -59,6 +59,7 @@ Mix_Chunk* checkpoint2_sfx;
 Mix_Chunk* select_adjacent_sfx;
 Mix_Chunk* send_msg_sfx;
 Mix_Chunk* recv_msg_sfx;
+Mix_Chunk* you_lost_sfx;
 
 SDL_Texture* theme_background_texture;
 SDL_Texture* iitd_map_texture;
@@ -254,6 +255,7 @@ int main(int argc, char **argv){
 
   window = RenderWindow("IITD Maze", SCREEN_W, SCREEN_H);
   window.initialize_text();
+  window.init_score();
   theme_background_texture = window.loadTexture("res/gfx/background.png");
   iitd_map_texture = window.loadTexture("res/gfx/iitd_map.png");
   help_texture = window.loadTexture("res/gfx/help_screen.png");
@@ -343,9 +345,20 @@ int main(int argc, char **argv){
                 }
             }
             else if (event.packet->dataLength == sizeof (GameMeta)) {
-              // std::cout << "i received a chat";
+              std::cout << "i received a chat";
               Mix_PlayChannel(-1, recv_msg_sfx, 0);
               memcpy(&player_chat, (const void*) event.packet->data, sizeof (GameMeta));
+              std::cout << "lost " <<(bool) player_chat.lost << " won " << (bool) player_chat.won << '\n';
+              std::cout << player_chat.comm << '\n';
+              if (player_chat.lost != 0) {
+                screen = WinningScreen;
+                Mix_PlayChannel(-1, you_lost_sfx, 0);
+              }
+              if ( player_chat.won != 0) {
+
+                screen = WinningScreen;
+                Mix_PlayChannel(-1, checkpoint2_sfx, 0);
+              }
               window.change_rendered_text_2(player_chat.comm);
               renderText_2 = true;
             }

@@ -13,12 +13,13 @@
 #include "map_data_extern.h"
 #include "constants.h"
 #include "fonts.h"
+#include "game_meta_constants.h"
 
 
 extern ENetPeer* peer;
 extern ENetHost* client_host;
 extern int k;
-extern boolean visited_c1;
+extern bool visited_c1;
 extern int last_dog_idx, last_amul_idx, last_prof_idx, last_yulu_idx;
 
 void handle_event(SDL_Event e, int& prev_node_selected);

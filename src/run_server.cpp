@@ -192,7 +192,7 @@ int main(int argc, char **argv){
                 if (player_input.player_index == 0) {
                   for (Vector2f& d: dogs) {
                     if (squared_dist(d, r1.pos.x, r1.pos.y) < min_dog_dist) {
-                      r1.health -= 0.01;
+                      r1.health -= 0.05;
                       // std::cout << "r1s health becomes, " << r1.health << '\n';
                       r1.health = std::max(r1.health, 0.0f);
                     }
@@ -225,26 +225,26 @@ int main(int argc, char **argv){
                 }
                 else {
                   for (Vector2f& d: dogs) {
-                    if (squared_dist(d, r1.pos.x, r1.pos.y) < min_dog_dist) {
-                      r1.health -= 0.02;
-                      r1.health = std::max(r1.health, 0.0f);
+                    if (squared_dist(d, r2.pos.x, r2.pos.y) < min_dog_dist) {
+                      r2.health -= 0.05;
+                      r2.health = std::max(r2.health, 0.0f);
                     }
                   }
                   for (Vector2f& d: yulus) {
-                    if (squared_dist(d, r1.pos.x, r1.pos.y) < min_yulu_dist) {
-                      r1.speed = std::min(r1.speed + 3, 40.0f);
+                    if (squared_dist(d, r2.pos.x, r2.pos.y) < min_yulu_dist) {
+                      r2.speed = std::min(r2.speed + 3, 40.0f);
                     }
                   }
                   for (Vector2f& d: amuls) {
-                    if (squared_dist(d, r1.pos.x, r1.pos.y) < min_amul_dist) {
-                      r1.health += 0.2;
-                      r1.health = std::min(r1.health, 1.0f);
+                    if (squared_dist(d, r2.pos.x, r2.pos.y) < min_amul_dist) {
+                      r2.health += 0.2;
+                      r2.health = std::min(r2.health, 2.0f);
                     }
                   }
                   for (Vector2f& d: profs) {
-                    if (squared_dist(d, r1.pos.x, r1.pos.y) < min_prof_dist) {
-                      r1.speed *= 0.8;
-                      r1.speed = std::max(r1.speed, 4.0f);
+                    if (squared_dist(d, r2.pos.x, r2.pos.y) < min_prof_dist) {
+                      r2.speed *= 0.8;
+                      r2.speed = std::max(r2.speed, 4.0f);
                     }
                   }
                   r2.setDir(nodes[selected_node_idx_2].pos.x, nodes[selected_node_idx_2].pos.y);
@@ -279,18 +279,48 @@ int main(int argc, char **argv){
           if (event.packet->dataLength == sizeof (GameMeta)) {
             // std::cout << "someone sent a chat\n";
             memcpy(&player_chat, (const void*) event.packet->data, sizeof (GameMeta));
-            // std::cout << player_chat.comm << '\n';
-            GameMeta msg(0, 0, (const char*)player_chat.comm, 1 - player_chat.player_index);
-            ENetPacket* packet = enet_packet_create(&msg, sizeof(msg), ENET_PACKET_FLAG_RELIABLE);
-            // std::cout << "sending " << msg.comm << '\n';
-            if (player_chat.player_index==1 && client1 != NULL) {
-              enet_peer_send(client1, 0, packet);
-              // std::cout << "sent to client1\n";
-            }
-            else if (client2 != NULL) {
-              enet_peer_send(client2, 0, packet);
-              // std::cout << "sent to client1\n";
+            // std::cout << "lost " << (bool) player_chat.lost << " won " << (bool)player_chat.won << '\n';
 
+            if (player_chat.lost != 0) {
+              GameMeta msg(0, 1, (const char*)player_chat.comm, 1 - player_chat.player_index);
+              ENetPacket* packet = enet_packet_create(&msg, sizeof(msg), ENET_PACKET_FLAG_RELIABLE);
+
+              if (player_chat.player_index==1 && client1 != NULL) {
+                enet_peer_send(client1, 0, packet);
+              }
+              else if (client2 != NULL) {
+                enet_peer_send(client2, 0, packet);
+
+              }
+            }
+            else if (player_chat.won != 0) {
+
+              GameMeta msg(1, 0, (const char*)player_chat.comm, 1 - player_chat.player_index);
+              ENetPacket* packet = enet_packet_create(&msg, sizeof(msg), ENET_PACKET_FLAG_RELIABLE);
+
+              if (player_chat.player_index==1 && client1 != NULL) {
+                enet_peer_send(client1, 0, packet);
+              }
+              else if (client2 != NULL) {
+                enet_peer_send(client2, 0, packet);
+
+              }
+            }
+            else {
+
+              // std::cout << player_chat.comm << '\n';
+              GameMeta msg(0, 0, (const char*)player_chat.comm, 1 - player_chat.player_index);
+              ENetPacket* packet = enet_packet_create(&msg, sizeof(msg), ENET_PACKET_FLAG_RELIABLE);
+              // std::cout << "sending " << msg.comm << '\n';
+              if (player_chat.player_index==1 && client1 != NULL) {
+                enet_peer_send(client1, 0, packet);
+                // std::cout << "sent to client1\n";
+              }
+              else if (client2 != NULL) {
+                enet_peer_send(client2, 0, packet);
+                // std::cout << "sent to client1\n";
+
+              }
             }
 
           }
@@ -315,6 +345,9 @@ int main(int argc, char **argv){
     }
 
   }
+  if (client1) enet_peer_disconnect(client1, 0);
+  if (client2) enet_peer_disconnect(client1, 0);
+
   enet_host_destroy(server);
   atexit (enet_deinitialize);
 

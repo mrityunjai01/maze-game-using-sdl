@@ -31,16 +31,21 @@ public:
   void change_rendered_text_2 (const char* new_text);
   void render_text_1 ();
   void render_text_2 ();
+  void change_rendered_score (int);
+  void render_score ();
+  void init_score ();
   void initialize_text();
   void set_color (int r, int g, int b, int a);
   void display();
   int getRefreshRate();
 private:
-  int w1, h1, w2, h2;
+  int w1, h1, w2, h2, w_s, h_s;
   SDL_Window* window;
   SDL_Renderer* renderer;
   SDL_Texture* chat_text_texture_1;
   SDL_Surface* chat_text_surface_1;
+  SDL_Surface* score_surf;
+  SDL_Texture* score_texture;
   SDL_Texture* chat_text_texture_2;
   SDL_Surface* chat_text_surface_2;
 };

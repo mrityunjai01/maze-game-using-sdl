@@ -137,7 +137,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
           else if (e.key.keysym.sym == SDLK_SPACE){
             if (chat_started) break;
             if (at_node)  {
-              Mix_PlayChannel(-1, select_adjacent_sfx, 0);
+              // Mix_PlayChannel(-1, select_adjacent_sfx, 0);
               break;
             }
             int idx = 0;
@@ -149,10 +149,14 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
                   last_dog_idx = idx;
                 }
                 idx++;
-                // std::cout << "health changes from " << r1.health << " to ";
-                r1.health -= 0.02;
+                std::cout << "health changes from " << r1.health << " to ";
+                r1.health -= 0.05;
                 r1.health = std::max(r1.health, 0.0f);
-                // std::cout << r1.health << "\n";
+                if (r1.health <= 0.0 && death_on_zero_health) {
+                  screen = WinningScreen;
+                  send_chat(GameMeta(1, 0, "dead", player_index));
+                }
+                std::cout << r1.health << "\n";
               }
             }
             idx = 0;
@@ -202,7 +206,9 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
             r1.step();
             if (squared_dist(checkpoint1.pos, r1.pos.x, r1.pos.y) < min_target_dist) {
               Mix_PlayChannel(-1, checkpoint1_sfx, 0);
+
               r1.score += 100;
+              window.change_rendered_score(r1.score + (int) r1.health);
               visited_c1 = true;
               //
               // at_node = true;
@@ -212,6 +218,7 @@ void handle_event(SDL_Event e, int& prev_node_selected) {
             if (squared_dist(checkpoint2.pos, r1.pos.x, r1.pos.y) < min_target_dist && visited_c1) {
               Mix_PlayChannel(-1, checkpoint2_sfx, 0);
               r1.score += 100;
+              send_chat(GameMeta(0, 1, strdup (text_in_box_1.c_str()), player_index));
               SDL_Delay(200);
 
               // SDL_Color color = {255,255,0};
